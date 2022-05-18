@@ -129,12 +129,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\KEnyin.hpp" />
-    <ClInclude Include="src\KEnyin\Application.hpp" />
-    <ClInclude Include="src\KEnyin\Base.hpp" />
-    <ClInclude Include="src\KEnyin\EntryPoint.hpp" />
+    <ClInclude Include="src\KEnyin\Core\Application.hpp" />
+    <ClInclude Include="src\KEnyin\Core\Assert.hpp" />
+    <ClInclude Include="src\KEnyin\Core\Base.hpp" />
+    <ClInclude Include="src\KEnyin\Core\EntryPoint.hpp" />
+    <ClInclude Include="src\KEnyin\Core\Log.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\KEnyin\Application.cpp" />
+    <ClCompile Include="src\KEnyin\Core\Application.cpp" />
+    <ClCompile Include="src\KEnyin\Core\Log.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

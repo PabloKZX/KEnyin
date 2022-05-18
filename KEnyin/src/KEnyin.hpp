@@ -1,4 +1,4 @@
 #pragma once
 
-#include "KEnyin/Application.hpp"
-#include "KEnyin/EntryPoint.hpp"
+#include "KEnyin/Core/Application.hpp"
+#include "KEnyin/Core/EntryPoint.hpp"
