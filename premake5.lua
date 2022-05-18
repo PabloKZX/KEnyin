@@ -48,6 +48,15 @@ project "KEnyin"
             "KE_PLATFORM_WINDOWS",
         }
 
+    filter "system:macosx"
+        staticruntime "On"
+        systemversion "latest"
+
+        defines
+        {
+            "KE_PLATFORM_MACOS",
+        }
+
     -- CONFIGURATION FILTERS
 
     filter "configurations:Debug"
