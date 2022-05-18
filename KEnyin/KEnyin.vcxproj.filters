@@ -25,6 +25,7 @@
     <ClInclude Include="src\KEnyin\Core\Log.hpp">
       <Filter>KEnyin\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\pch.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEnyin\Core\Application.cpp">
@@ -33,5 +34,6 @@
     <ClCompile Include="src\KEnyin\Core\Log.cpp">
       <Filter>KEnyin\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
 </Project>

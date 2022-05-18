@@ -1,6 +1,5 @@
+#include "pch.hpp"
 #include "KEnyin/Core/Application.hpp"
-#include "KEnyin/Core/Log.hpp"
-#include "KEnyin/Core/Assert.hpp"
 #include "spdlog/spdlog.h"
 
 namespace KEnyin

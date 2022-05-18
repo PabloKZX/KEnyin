@@ -1,4 +1,4 @@
-#include "KEnyin/Core/Log.hpp"
+#include "pch.hpp"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace KEnyin

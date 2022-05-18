@@ -21,6 +21,9 @@ project "KEnyin"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "pch.hpp"
+    pchsource "KEnyin/src/pch.cpp"
+
     files
     {
         "%{prj.name}/src/**.h",
