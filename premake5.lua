@@ -31,6 +31,7 @@ project "KEnyin"
     includedirs
     {
         "%{prj.name}/src",
+        "%{prj.name}/vendor/spdlog/include",
     }
 
     -- PLATFORM FILTERS
@@ -82,9 +83,9 @@ project "KEnyinApp"
 
     includedirs
     {
-        "KEnyin/vendor/spdlog/include",
         "KEnyin/src",
         "KEnyin/vendor",
+        "KEnyin/vendor/spdlog/include",
     }
 
     links
