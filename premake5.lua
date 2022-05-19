@@ -1,5 +1,4 @@
 workspace "KEnyin"
-    location "proj/build/%{wks.system}"
     architecture "x64"
     startproject "KEnyinApp"
 
@@ -13,7 +12,7 @@ workspace "KEnyin"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 project "KEnyin"
-    location "proj/build/%{prj.system}/KEnyin"
+    location "KEnyin"
     kind "StaticLib"
     staticruntime "On"
     language "C++"
@@ -77,7 +76,7 @@ project "KEnyin"
 
 
 project "KEnyinApp"
-    location "proj/build/%{prj.system}/KEnyinApp"
+    location "KEnyinApp"
     kind "ConsoleApp"
     language "C++"
     staticruntime "On"

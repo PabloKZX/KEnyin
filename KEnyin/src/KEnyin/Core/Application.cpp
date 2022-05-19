@@ -6,10 +6,12 @@ namespace KEnyin
 {
     Application::Application()
     {
+        ServiceLocator::get().loadServices();
     }
 
     Application::~Application()
     {
+        ServiceLocator::get().clearServices();
     }
 
     void Application::run()
