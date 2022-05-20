@@ -11,6 +11,11 @@ workspace "KEnyin"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+includeDirs = {}
+includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
+
+include "KEnyin/vendor/GLFW"
+
 project "KEnyin"
     location "KEnyin"
     kind "StaticLib"
@@ -35,6 +40,13 @@ project "KEnyin"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
+        "%{includeDirs.GLFW}",
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib",
     }
 
     -- PLATFORM FILTERS
