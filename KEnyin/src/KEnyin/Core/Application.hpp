@@ -1,5 +1,7 @@
 #pragma once
 
+#include "KEnyin/Core/Window.hpp"
+
 namespace KEnyin
 {
     class Application
@@ -9,6 +11,8 @@ namespace KEnyin
         virtual ~Application();
 
         void run();
+    private:
+        std::unique_ptr<Window> _window;
     };
 
     //To be defined by KEnyin Applications
