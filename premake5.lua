@@ -14,9 +14,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDirs = {}
 includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
 includeDirs["glad"] = "KEnyin/vendor/glad/include"
+includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
 
 include "KEnyin/vendor/GLFW"
 include "KEnyin/vendor/glad"
+include "KEnyin/vendor/ImGui"
 
 project "KEnyin"
     location "KEnyin"
@@ -44,6 +46,7 @@ project "KEnyin"
         "%{prj.name}/vendor/spdlog/include",
         "%{includeDirs.GLFW}",
         "%{includeDirs.glad}",
+        "%{includeDirs.ImGui}",
     }
 
     links
@@ -51,6 +54,7 @@ project "KEnyin"
         "GLFW",
         "opengl32.lib",
         "glad",
+        "ImGui",
     }
 
     -- PLATFORM FILTERS

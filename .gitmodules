@@ -1,3 +1,6 @@
 [submodule "KEnyin/vendor/GLFW"]
 	path = KEnyin/vendor/GLFW
 	url = https://github.com/PabloKZX/glfw.git
+[submodule "KEnyin/vendor/ImGui"]
+	path = KEnyin/vendor/ImGui
+	url = https://github.com/PabloKZX/imgui.git
