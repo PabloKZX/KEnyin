@@ -4,4 +4,6 @@
 
 #ifdef KE_DEBUG
     #define KE_ASSERTS_ENABLED
-#endif // KE_
+#endif // KE_DEBUG
+
+#define BIT(x) (1 << x)

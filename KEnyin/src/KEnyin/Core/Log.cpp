@@ -8,7 +8,7 @@ namespace KEnyin
 
     void Log::init()
     {
-        spdlog::set_pattern("[%T] %^[%n %l]%$ %v");
+        spdlog::set_pattern("[%T] %^[%n]%$ %v");
 
         _engineLogger = spdlog::stdout_color_mt("KENYIN");
         _engineLogger->set_level(spdlog::level::trace);
