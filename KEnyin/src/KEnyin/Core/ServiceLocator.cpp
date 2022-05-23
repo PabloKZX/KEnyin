@@ -20,13 +20,13 @@ namespace KEnyin
         return locator;
     }
 
-    void ServiceLocator::loadServices()
+    void ServiceLocator::loadServices(Application* application)
     {
-
+        _application = application;
     }
 
     void ServiceLocator::clearServices()
     {
-        
+
     }
 }

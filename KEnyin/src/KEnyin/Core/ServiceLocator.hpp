@@ -26,10 +26,15 @@ public:                                                                 \
 
 namespace KEnyin
 {
+    class Application;
+}
+
+namespace KEnyin
+{
     class ServiceLocator final
     {
-    public:
-        //Add Services here
+    private:
+        ADD_SERVICE(Application, _application)
 
     public:
         ~ServiceLocator() = default;
@@ -41,7 +46,7 @@ namespace KEnyin
 
         static ServiceLocator& get();
 
-        void loadServices();
+        void loadServices(Application* application);
         void clearServices();
 
     private:

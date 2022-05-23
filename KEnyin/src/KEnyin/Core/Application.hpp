@@ -13,6 +13,8 @@ namespace KEnyin
 
         void run();
         void onEvent(Event& event);
+
+        inline Window& getWindow() const { return *_window; }
     private:
         bool onWindowClosed(WindowCloseEvent e);
 
