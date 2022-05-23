@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 includeDirs = {}
 includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
+includeDirs["glad"] = "KEnyin/vendor/glad/include"
 
 include "KEnyin/vendor/GLFW"
+include "KEnyin/vendor/glad"
 
 project "KEnyin"
     location "KEnyin"
@@ -41,12 +43,14 @@ project "KEnyin"
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
         "%{includeDirs.GLFW}",
+        "%{includeDirs.glad}",
     }
 
     links
     {
         "GLFW",
         "opengl32.lib",
+        "glad",
     }
 
     -- PLATFORM FILTERS
@@ -58,6 +62,7 @@ project "KEnyin"
         defines
         {
             "KE_PLATFORM_WINDOWS",
+            "GLFW_INCLUDE_NONE"
         }
 
     filter "system:macosx"

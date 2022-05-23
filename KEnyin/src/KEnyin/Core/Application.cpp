@@ -4,7 +4,7 @@
 
 #include "KEnyin/Input/KeyCodes.hpp"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 namespace KEnyin
 {
     Application::Application()
@@ -27,8 +27,7 @@ namespace KEnyin
             glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
-
-            if (Input::getButtonDown(KE_KEY_TAB))
+            if (Input::getKeyDown(KE_KEY_TAB))
             {
                 KESuccess_Engine("TAB pressed");
             }

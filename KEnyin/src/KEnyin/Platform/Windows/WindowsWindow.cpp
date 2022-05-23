@@ -3,6 +3,8 @@
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Events/KeyEvent.hpp"
 #include "KEnyin/Events/MouseEvent.hpp"
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace KEnyin
 {
@@ -43,13 +45,16 @@ namespace KEnyin
         }
 
         _nativeWindow = glfwCreateWindow(_windowData.width, _windowData.height, _windowData.title.c_str(), nullptr, nullptr);
-        if (!_nativeWindow)
-        {
-            glfwTerminate();
-            return;
-        }
-
         glfwMakeContextCurrent(_nativeWindow);
+
+        int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        KECheck_Engine(success, "Failed to initialize glad!");
+
+        KELog_Engine("OpenGL Info");
+        KELog_Engine("  Vendor:   {0}", glGetString(GL_VENDOR));
+        KELog_Engine("  Renderer: {0}", glGetString(GL_RENDERER));
+        KELog_Engine("  Version:  {0}", glGetString(GL_VERSION));
+
         glfwSetWindowUserPointer(_nativeWindow, &_windowData);
 
         glfwSetWindowCloseCallback(_nativeWindow, [](GLFWwindow* window)
