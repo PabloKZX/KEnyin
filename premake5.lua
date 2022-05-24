@@ -15,6 +15,7 @@ includeDirs = {}
 includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
 includeDirs["glad"] = "KEnyin/vendor/glad/include"
 includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
+includeDirs["glm"] = "KEnyin/vendor/glm"
 
 include "KEnyin/vendor/GLFW"
 include "KEnyin/vendor/glad"
@@ -47,6 +48,7 @@ project "KEnyin"
         "%{includeDirs.GLFW}",
         "%{includeDirs.glad}",
         "%{includeDirs.ImGui}",
+        "%{includeDirs.glm}",
     }
 
     links
@@ -119,6 +121,7 @@ project "KEnyinApp"
         "KEnyin/src",
         "KEnyin/vendor",
         "KEnyin/vendor/spdlog/include",
+        "%{includeDirs.glm}",
     }
 
     links

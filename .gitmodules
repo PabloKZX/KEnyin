@@ -4,3 +4,6 @@
 [submodule "KEnyin/vendor/ImGui"]
 	path = KEnyin/vendor/ImGui
 	url = https://github.com/PabloKZX/imgui.git
+[submodule "KEnyin/vendor/glm"]
+	path = KEnyin/vendor/glm
+	url = https://github.com/g-truc/glm.git
