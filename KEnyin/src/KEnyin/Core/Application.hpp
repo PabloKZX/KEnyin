@@ -20,6 +20,10 @@ namespace KEnyin
 
         std::unique_ptr<Window> _window;
         bool _running = true;
+
+        unsigned int _vertexArray;
+        unsigned int _vertexBuffer;
+        unsigned int _indexBuffer;
     };
 
     //To be defined by KEnyin Applications
