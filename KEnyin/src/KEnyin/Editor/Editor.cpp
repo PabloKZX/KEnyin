@@ -58,7 +58,8 @@ namespace KEnyin::Editor
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::ShowDemoWindow(&show_demo_window);
+        if(show_demo_window)
+            ImGui::ShowDemoWindow(&show_demo_window);
 
         {
             static float f = 0.0f;

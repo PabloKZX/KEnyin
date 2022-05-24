@@ -33,14 +33,21 @@ namespace KEnyin
 
         KESuccess_Engine("Creating window {0} {1} {2}", _windowData.title, _windowData.width, _windowData.height);
 
+        //  Initialize glfw
         if (!glfwInitialized)
         {
             int success = glfwInit();
             KECheck_Engine(success, "Failed to initialize GLFW!");
+
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
             glfwSetErrorCallback([](int error, const char* desc)
             {
                 KEError_Engine("GLFW Error: ({0}) {1}", error, desc);
             });
+
             glfwInitialized = true;
         }
 
@@ -48,14 +55,20 @@ namespace KEnyin
         glfwMakeContextCurrent(_nativeWindow);
         glfwSwapInterval(1); // Enable vsync
 
+        // Initialize glad
         int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         KECheck_Engine(success, "Failed to initialize glad!");
 
+        // This will change when rendering to an ImGui Window
+        glViewport(0, 0, 1280, 720);
+
+        // Useful info
         KELog_Engine("OpenGL Info");
         KELog_Engine("  Vendor:   {0}", glGetString(GL_VENDOR));
         KELog_Engine("  Renderer: {0}", glGetString(GL_RENDERER));
         KELog_Engine("  Version:  {0}", glGetString(GL_VERSION));
 
+        // Set glfw callbacks
         glfwSetWindowUserPointer(_nativeWindow, &_windowData);
 
         glfwSetWindowCloseCallback(_nativeWindow, [](GLFWwindow* window)
@@ -70,6 +83,11 @@ namespace KEnyin
                 WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
                 WindowResizeEvent event(static_cast<unsigned int>(width), static_cast<unsigned int>(height));
                 data.eventCallback(event);
+            });
+
+        glfwSetFramebufferSizeCallback(_nativeWindow, [](GLFWwindow* window, int width, int height)
+            {
+                glViewport(0, 0, width, height);
             });
 
         glfwSetMouseButtonCallback(_nativeWindow, [](GLFWwindow* window, int button, int action, int mods)
@@ -146,6 +164,7 @@ namespace KEnyin
     void WindowsWindow::shutdown()
     {
         glfwDestroyWindow(_nativeWindow);
+        glfwTerminate();
     }
 
     void WindowsWindow::onUpdate()

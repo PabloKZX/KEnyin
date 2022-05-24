@@ -42,6 +42,33 @@ namespace KEnyin
         };
 
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        std::string vertexSource = R"(
+            #version 440 core
+            layout (location = 0) in vec3 aPos;
+
+            out vec3 v_Position;
+
+            void main()
+            {
+                v_Position = aPos;
+                gl_Position = vec4(aPos, 1.0);
+            }
+        )";
+
+        std::string fragmentSource = R"(
+            #version 440 core
+            out vec4 fragColor;
+
+            in vec3 v_Position;
+
+            void main()
+            {
+                fragColor = vec4(v_Position * 0.5 + 0.5, 1.0);
+            }
+        )";
+
+        _shader = std::make_unique<Shader>(vertexSource, fragmentSource);
     }
 
     Application::~Application()
@@ -60,6 +87,8 @@ namespace KEnyin
             {
                 KESuccess_Engine("TAB pressed");
             }
+
+            _shader->bind();
 
             glBindVertexArray(_vertexArray);
             glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);

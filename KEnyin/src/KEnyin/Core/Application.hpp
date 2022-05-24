@@ -2,6 +2,7 @@
 
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
+#include "KEnyin/Rendering/Shader.hpp"
 
 namespace KEnyin
 {
@@ -19,6 +20,7 @@ namespace KEnyin
         bool onWindowClosed(WindowCloseEvent e);
 
         std::unique_ptr<Window> _window;
+        std::unique_ptr<Shader> _shader;
         bool _running = true;
 
         unsigned int _vertexArray;
