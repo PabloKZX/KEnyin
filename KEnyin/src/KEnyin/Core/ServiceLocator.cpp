@@ -1,5 +1,6 @@
 #include "pch.hpp"
 #include "KEnyin/Core/ServiceLocator.hpp"
+#include "KEnyin/Editor/Editor.hpp"
 
 #define SAFE_DELETE(service) \
     if(service)              \
@@ -23,6 +24,8 @@ namespace KEnyin
     void ServiceLocator::loadServices(Application* application)
     {
         _application = application;
+
+        _editor = new Editor::Editor();
     }
 
     void ServiceLocator::clearServices()

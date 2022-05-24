@@ -46,6 +46,7 @@ namespace KEnyin
 
         _nativeWindow = glfwCreateWindow(_windowData.width, _windowData.height, _windowData.title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_nativeWindow);
+        glfwSwapInterval(1); // Enable vsync
 
         int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         KECheck_Engine(success, "Failed to initialize glad!");
