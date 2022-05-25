@@ -3,6 +3,7 @@
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
+#include "KEnyin/SceneManagement/Scene.hpp"
 
 namespace KEnyin
 {
@@ -21,6 +22,7 @@ namespace KEnyin
 
         std::unique_ptr<Window> _window;
         std::unique_ptr<Shader> _shader;
+        std::unique_ptr<Scene> _activeScene;
         bool _running = true;
 
         unsigned int _vertexArray;

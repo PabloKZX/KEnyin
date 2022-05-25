@@ -1,8 +1,11 @@
 #include "pch.hpp"
 #include "KEnyin/Core/Application.hpp"
-#include "KEnyin/Input/Input.hpp"
+#include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Editor/Editor.hpp"
+#include "KEnyin/Events/ApplicationEvent.hpp"
+#include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
+#include "KEnyin/Rendering/Shader.hpp"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -43,32 +46,7 @@ namespace KEnyin
 
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        std::string vertexSource = R"(
-            #version 440 core
-            layout (location = 0) in vec3 aPos;
-
-            out vec3 v_Position;
-
-            void main()
-            {
-                v_Position = aPos;
-                gl_Position = vec4(aPos, 1.0);
-            }
-        )";
-
-        std::string fragmentSource = R"(
-            #version 440 core
-            out vec4 fragColor;
-
-            in vec3 v_Position;
-
-            void main()
-            {
-                fragColor = vec4(v_Position * 0.5 + 0.5, 1.0);
-            }
-        )";
-
-        _shader = std::make_unique<Shader>(vertexSource, fragmentSource);
+        _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs");
     }
 
     Application::~Application()

@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cctype>
 #include <ctime>
+#include <fstream>
 #include <functional>
 #include <list>
 #include <locale>
@@ -20,3 +21,4 @@
 #include "KEnyin/Core/Log.hpp"
 #include "KEnyin/Core/Assert.hpp"
 #include "KEnyin/Core/ServiceLocator.hpp"
+#include <glm/glm.hpp>

@@ -4,8 +4,45 @@
 
 namespace KEnyin
 {
-    Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource)
+    Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
     {
+        // 1.Retrieve the source code from the files
+        std::string vertexSource;
+        std::string fragmentSource;
+
+        std::ifstream vShaderFile;
+        std::ifstream fShaderFile;
+
+        // Ensure ifstream objects can throw exceptions
+        vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+        try
+        {
+            // Open files
+            vShaderFile.open(vertexPath);
+            fShaderFile.open(fragmentPath);
+            std::stringstream vShaderStream, fShaderStream;
+
+            // Read files contents 
+            vShaderStream << vShaderFile.rdbuf();
+            fShaderStream << fShaderFile.rdbuf();
+
+            // Close files
+            vShaderFile.close();
+            fShaderFile.close();
+
+            // Convert streams into strings
+            vertexSource = vShaderStream.str();
+            fragmentSource = fShaderStream.str();
+        }
+        catch (std::ifstream::failure e)
+        {
+            KEError_Engine("Shader file read failed!");
+        }
+
+        // 2. Compile shaders
+
         // Create vertex shader
         unsigned int vertexShader;
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
