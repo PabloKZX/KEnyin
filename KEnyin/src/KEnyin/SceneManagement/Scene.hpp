@@ -9,12 +9,14 @@ namespace KEnyin
     public:
         using VGameObjects = std::vector<std::unique_ptr<GameObject>>;
 
-        Scene();
-        Scene(const std::string& name);
-        ~Scene() {};
+        Scene() {};
+        Scene(const std::string& name) : _name(name) {};
+        ~Scene() = default;
 
-        void addGameObject(GameObject gameObject);
+        void onUpdate(float timestep);
+        void onRender();
 
+        void addGameObject(GameObject&& gameObject);
     private:
         std::string _name = "New Scene";
         VGameObjects _gameObjects;

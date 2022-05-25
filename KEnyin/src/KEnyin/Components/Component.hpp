@@ -4,10 +4,17 @@ namespace KEnyin
 {
     class Component
     {
+        friend class GameObject;
     public:
-        virtual ~Component();
+        virtual ~Component() = default;
     protected:
-        Component();
-    private:
+        Component() = default;
+        Component(const Component&) = default;
+
+        virtual void onStart() {};
+        virtual void onUpdate(float timestep) {};
+        virtual void onRender() {};
+
+        bool _enabled;
     };
 }

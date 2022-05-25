@@ -7,11 +7,21 @@
 #include "KEnyin/Input/KeyCodes.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
 
+#include "KEnyin/SceneManagement/GameObject.hpp"
+#include "KEnyin/Components/DummyComponent.hpp"
+
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
 namespace KEnyin
 {
+    namespace application_constants
+    {
+        constexpr float kApplicationWidth = 700;
+        constexpr float kApplicationHeight = 700;
+        constexpr int kMsPerUpdate = 40;
+    }
+
     Application::Application()
     {
         _window = std::unique_ptr<Window>(Window::create());
@@ -47,8 +57,15 @@ namespace KEnyin
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs");
-    }
 
+        _activeScene = std::make_unique<Scene>("Sample scene");
+        GameObject go;
+
+        go.addComponent<DummyComponent>();
+
+        _activeScene->addGameObject(std::move(go));
+    }
+    
     Application::~Application()
     {
         ServiceLocator::get().clearServices();
@@ -56,24 +73,24 @@ namespace KEnyin
 
     void Application::run()
     {
+        auto previousTime = std::chrono::system_clock::now();
+        double lag = 0.0;
+
         while (_running)
         {
-            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
+            auto currentTime = std::chrono::system_clock::now();
+            double elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
 
-            if (Input::getKeyDown(KE_KEY_TAB))
+            previousTime = currentTime;
+            lag += elapsed;
+
+            while (lag >= application_constants::kMsPerUpdate)
             {
-                KESuccess_Engine("TAB pressed");
+                update(elapsed);
+                lag -= application_constants::kMsPerUpdate;
             }
 
-            _shader->bind();
-
-            glBindVertexArray(_vertexArray);
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-
-            ServiceLocator::get().getEditor().update();
-
-            _window->onUpdate();
+            render();
         }
     }
 
@@ -90,4 +107,30 @@ namespace KEnyin
         _running = false;
         return true;
     }
+
+    void Application::update(float timestep)
+    {
+        _activeScene->onUpdate(timestep);
+    }
+
+    void Application::render()
+    {
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        if (Input::getKeyDown(KE_KEY_TAB))
+        {
+            KESuccess_Engine("TAB pressed");
+        }
+
+        _shader->bind();
+
+        glBindVertexArray(_vertexArray);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+
+        ServiceLocator::get().getEditor().update();
+
+        _window->onUpdate();
+    }
+
 }

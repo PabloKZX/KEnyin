@@ -1,21 +1,20 @@
 #pragma once
 
+#include "KEnyin/Components/Component.hpp"
 #include <glm/glm.hpp>
 
 namespace KEnyin
 {
-    class Transform
+    class Transform : public Component
     {
     public:
-        using VTransform = std::vector<Transform*>;
+        Transform() = default;
+        Transform(const Transform&) = default;
+        ~Transform() = default;
 
-    private:
-        glm::vec3 _position;
-        glm::vec3 _rotation;
-        glm::vec3 _scale;
-
-        Transform* _parent;
-        VTransform _children;
+        glm::vec3 position = { 0.0f, 0.0f, 0.0f };
+        glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };;
+        glm::vec3 scale = { 1.0f, 1.0f, 1.0f };;
     };
 }
 

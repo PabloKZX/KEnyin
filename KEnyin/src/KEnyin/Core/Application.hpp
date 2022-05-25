@@ -19,6 +19,8 @@ namespace KEnyin
         inline Window& getWindow() const { return *_window; }
     private:
         bool onWindowClosed(WindowCloseEvent e);
+        void update(float timestep);
+        void render();
 
         std::unique_ptr<Window> _window;
         std::unique_ptr<Shader> _shader;

@@ -7,18 +7,22 @@ namespace KEnyin
 {
     class GameObject
     {
+        friend class Scene;
+
     public:
-        using VComponents = std::vector<std::unique_ptr<Component>>;
+        using VComponents = std::vector<Component*>;
 
         GameObject(const std::string& name = "New GameObject");
+        GameObject(const GameObject& other);
+        GameObject(GameObject&& other) noexcept;
         ~GameObject();
 
         template<typename T>
         T* addComponent()
         {
-            T* component = new T(this, &_transform);
+            T* component = new T();
             _components.push_back(reinterpret_cast<T*>(component));
-            component->start();
+            component->onStart();
             return component;
         }
 
@@ -37,10 +41,14 @@ namespace KEnyin
         inline void setEnabled(bool enabled) { _enabled = enabled; }
 
     private:
+        void onStart();
+        void onUpdate(float timestamp);
+        void onRender();
+
         std::string _name = "New GameObject";
         bool _enabled = true;
         VComponents _components;
-        std::unique_ptr<Transform> _transform;
+        Transform* _transform;
     };
 }
 
