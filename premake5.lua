@@ -16,6 +16,7 @@ includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
 includeDirs["glad"] = "KEnyin/vendor/glad/include"
 includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
 includeDirs["glm"] = "KEnyin/vendor/glm"
+includeDirs["stb_image"] = "KEnyin/vendor/stb_image"
 
 include "KEnyin/vendor/GLFW"
 include "KEnyin/vendor/glad"
@@ -38,7 +39,13 @@ project "KEnyin"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+
+        "%{includeDirs.stb_image}/**.h",
+        "%{includeDirs.stb_image}/**.cpp",
+
+        "%{includeDirs.glm}/**.hpp",
+        "%{includeDirs.glm}/**.cpp",
     }
 
     includedirs
@@ -49,6 +56,7 @@ project "KEnyin"
         "%{includeDirs.glad}",
         "%{includeDirs.ImGui}",
         "%{includeDirs.glm}",
+        "%{includeDirs.stb_image}",
     }
 
     links

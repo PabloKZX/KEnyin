@@ -30,6 +30,8 @@ namespace KEnyin
         unsigned int _vertexArray;
         unsigned int _vertexBuffer;
         unsigned int _indexBuffer;
+
+        unsigned int _texture;
     };
 
     //To be defined by KEnyin Applications
