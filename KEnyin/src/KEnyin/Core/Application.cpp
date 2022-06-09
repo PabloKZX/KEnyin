@@ -8,7 +8,6 @@
 #include "KEnyin/Rendering/Shader.hpp"
 
 #include "KEnyin/SceneManagement/GameObject.hpp"
-#include "KEnyin/Components/DummyComponent.hpp"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -56,12 +55,11 @@ namespace KEnyin
 
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs");
+        //_shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs");
+        _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kes");
 
         _activeScene = std::make_unique<Scene>("Sample scene");
         GameObject go;
-
-        go.addComponent<DummyComponent>();
 
         _activeScene->addGameObject(std::move(go));
     }
