@@ -51,11 +51,11 @@ namespace KEnyin
         unsigned int fragmentShader = compileShader(fragmentSource, GL_FRAGMENT_SHADER);
 
         // 3. Create program
-        _rendererID = createProgram(vertexShader, fragmentShader);
+        _shaderID = createProgram(vertexShader, fragmentShader);
 
         // 4. Once linked, shaders are no longer necessary
-        glDetachShader(_rendererID, vertexShader);
-        glDetachShader(_rendererID, fragmentShader);
+        glDetachShader(_shaderID, vertexShader);
+        glDetachShader(_shaderID, fragmentShader);
     }
 
     Shader::Shader(const std::string& shaderPath)
@@ -69,21 +69,21 @@ namespace KEnyin
         unsigned int fragmentShader = compileShader(shaderSources[GL_FRAGMENT_SHADER], GL_FRAGMENT_SHADER);
 
         // 3. Create program
-        _rendererID = createProgram(vertexShader, fragmentShader);
+        _shaderID = createProgram(vertexShader, fragmentShader);
 
         // 4. Once linked, shaders are no longer necessary
-        glDetachShader(_rendererID, vertexShader);
-        glDetachShader(_rendererID, fragmentShader);
+        glDetachShader(_shaderID, vertexShader);
+        glDetachShader(_shaderID, fragmentShader);
     }
 
     Shader::~Shader()
     {
-        glDeleteProgram(_rendererID);
+        glDeleteProgram(_shaderID);
     }
 
     void Shader::bind()
     {
-        glUseProgram(_rendererID);
+        glUseProgram(_shaderID);
     }
 
     void Shader::unbind()
@@ -217,4 +217,50 @@ namespace KEnyin
 
         return program;
     }
+
+    void Shader::setFloat(const char* name, float value)
+    {
+        glUniform1f(glGetUniformLocation(_shaderID, name), value);
+    }
+
+    void Shader::setInteger(const char* name, int value)
+    {
+        glUniform1i(glGetUniformLocation(_shaderID, name), value);
+    }
+
+    void Shader::setVector2f(const char* name, float x, float y)
+    {
+        glUniform2f(glGetUniformLocation(_shaderID, name), x, y);
+    }
+
+    void Shader::setVector2f(const char* name, const glm::vec2& value)
+    {
+        glUniform2f(glGetUniformLocation(_shaderID, name), value.x, value.y);
+    }
+
+    void Shader::setVector3f(const char* name, float x, float y, float z)
+    {
+        glUniform3f(glGetUniformLocation(_shaderID, name), x, y, z);
+    }
+
+    void Shader::setVector3f(const char* name, const glm::vec3& value)
+    {
+        glUniform3f(glGetUniformLocation(_shaderID, name), value.x, value.y, value.z);
+    }
+
+    void Shader::setVector4f(const char* name, float x, float y, float z, float w)
+    {
+        glUniform4f(glGetUniformLocation(_shaderID, name), x, y, z, w);
+    }
+
+    void Shader::setVector4f(const char* name, const glm::vec4& value)
+    {
+        glUniform4f(glGetUniformLocation(_shaderID, name), value.x, value.y, value.z, value.w);
+    }
+
+    void Shader::setMatrix4(const char* name, const glm::mat4& matrix)
+    {
+        glUniformMatrix4fv(glGetUniformLocation(_shaderID, name), 1, false, glm::value_ptr(matrix));
+    }
+
 }

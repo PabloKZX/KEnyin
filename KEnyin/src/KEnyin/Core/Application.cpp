@@ -9,6 +9,10 @@
 
 #include "KEnyin/SceneManagement/GameObject.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
@@ -71,6 +75,7 @@ namespace KEnyin
 
         // Textures
         _texture = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/container.jpg");
+
     }
     
     Application::~Application()
@@ -129,6 +134,12 @@ namespace KEnyin
         {
             KESuccess_Engine("TAB pressed");
         }
+
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+        _shader->setMatrix4("uTransform", trans);
 
         _shader->bind();
         _texture->bind(GL_TEXTURE0);
