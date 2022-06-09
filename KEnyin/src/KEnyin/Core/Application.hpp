@@ -2,8 +2,11 @@
 
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
-#include "KEnyin/Rendering/Shader.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
+
+//TODO: Delete
+#include "KEnyin/Rendering/Shader.hpp"
+#include "KEnyin/Rendering/Texture2D.hpp"
 
 namespace KEnyin
 {
@@ -31,7 +34,8 @@ namespace KEnyin
         unsigned int _vertexBuffer;
         unsigned int _indexBuffer;
 
-        unsigned int _texture;
+        std::unique_ptr<Texture2D> _texture;
+        std::unique_ptr<Texture2D> _texture2;
     };
 
     //To be defined by KEnyin Applications
