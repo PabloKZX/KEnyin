@@ -6,5 +6,7 @@ namespace KEnyin
 {
     class Camera : Component
     {
+    public:
+        Camera();
     };
 }

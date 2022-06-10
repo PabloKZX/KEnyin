@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KEnyin/SceneManagement/GameObject.hpp"
+#include "KEnyin/ECS/GameObject.hpp"
 #include "KEnyin/ECS/SceneRegistry.hpp"
 
 namespace KEnyin
@@ -20,7 +20,7 @@ namespace KEnyin
         void addGameObject(GameObject&& gameObject);
 
         template<typename T>
-        void onComponentAdded();
+        void onComponentAdded(const GameObject& gameObject, const T& component);
     private:
         std::string _name = "New Scene";
         

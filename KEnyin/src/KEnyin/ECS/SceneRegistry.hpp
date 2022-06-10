@@ -1,19 +1,15 @@
 #pragma once
 
+#include "KEnyin/ECS/ComponentType.hpp"
+
 namespace KEnyin
 {
     class Component;
+    class GameObject;
 }
 
 namespace KEnyin
 {
-    enum class ComponentType
-    {
-        Camera,
-        Renderer,
-        CustomBehaviour,
-    };
-    
     class SceneRegistry
     {
     public:
@@ -22,6 +18,9 @@ namespace KEnyin
 
         template<typename T>
         std::vector<T> getCompontentsOfType(T type);
+
+        template<typename T>
+        void addComponent(const GameObject& gameObject, const T& component);
          
     private:
         Registry _registry;

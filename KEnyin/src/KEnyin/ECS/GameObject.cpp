@@ -1,5 +1,5 @@
 #include "pch.hpp"
-#include "KEnyin/SceneManagement/GameObject.hpp"
+#include "KEnyin/ECS/GameObject.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
 
 namespace KEnyin

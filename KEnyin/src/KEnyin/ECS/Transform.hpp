@@ -11,7 +11,7 @@ namespace KEnyin
     class Transform : public Component
     {
     public:
-        Transform() = default;
+        Transform() : Component(ComponentType::Transform) {};
         Transform(const Transform&) = default;
         ~Transform() = default;
 

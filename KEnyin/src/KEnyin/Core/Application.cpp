@@ -7,7 +7,7 @@
 #include "KEnyin/Input/KeyCodes.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
 
-#include "KEnyin/SceneManagement/GameObject.hpp"
+#include "KEnyin/ECS/GameObject.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

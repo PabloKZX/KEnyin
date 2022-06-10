@@ -1,7 +1,7 @@
 #pragma once
 
 #include "KEnyin/ECS/Component.hpp"
-#include "KEnyin/SceneManagement/Transform.hpp"
+#include "KEnyin/ECS/Transform.hpp"
 
 namespace KEnyin
 {
