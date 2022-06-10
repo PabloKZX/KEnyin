@@ -12,6 +12,7 @@ namespace KEnyin
     {
     public:
         Transform() = default;
+        Transform(const Transform&) = default;
         ~Transform() = default;
 
         inline const glm::mat4& getTransformMat() const

@@ -59,8 +59,10 @@ namespace KEnyin
         int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         KECheck_Engine(success, "Failed to initialize glad!");
 
-        // This will change when rendering to an ImGui Window
-        glViewport(0, 0, 1280, 720);
+        //TODO: This will change when rendering to an ImGui Window
+        glViewport(0, 0, _windowData.width, _windowData.height);
+
+        glEnable(GL_DEPTH_TEST);
 
         // Useful info
         KELog_Engine("OpenGL Info");

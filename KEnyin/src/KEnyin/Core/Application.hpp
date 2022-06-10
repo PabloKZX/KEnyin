@@ -36,6 +36,8 @@ namespace KEnyin
 
         std::unique_ptr<Texture2D> _texture;
         std::unique_ptr<Texture2D> _texture2;
+
+        std::vector<glm::vec3> _cubePositions;
     };
 
     //To be defined by KEnyin Applications

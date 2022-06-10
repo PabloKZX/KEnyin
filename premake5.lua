@@ -43,9 +43,6 @@ project "KEnyin"
 
         "%{includeDirs.stb_image}/**.h",
         "%{includeDirs.stb_image}/**.cpp",
-
-        "%{includeDirs.glm}/**.hpp",
-        "%{includeDirs.glm}/**.cpp",
     }
 
     includedirs
