@@ -1,5 +1,5 @@
 #include "pch.hpp"
-#include "KEnyin/Rendering/Materials/Material.hpp"
+#include "KEnyin/Rendering/Material.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
 
 namespace KEnyin

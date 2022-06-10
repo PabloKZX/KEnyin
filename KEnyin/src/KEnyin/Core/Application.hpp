@@ -20,6 +20,7 @@ namespace KEnyin
         void onEvent(Event& event);
 
         inline Window& getWindow() const { return *_window; }
+        inline Scene& getActiveScene() const { return *_activeScene; }
     private:
         bool onWindowClosed(WindowCloseEvent e);
         void update(float timestep);

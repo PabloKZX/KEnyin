@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KEnyin/Components/Component.hpp"
+#include "KEnyin/ECS/Component.hpp"
 #include "KEnyin/SceneManagement/Transform.hpp"
 
 namespace KEnyin
@@ -13,12 +13,10 @@ namespace KEnyin
         using VComponents = std::vector<Component*>;
 
         GameObject(const std::string& name = "New GameObject");
-        GameObject(const GameObject& other);
-        GameObject(GameObject&& other) noexcept;
         ~GameObject();
 
         template<typename T>
-        T* addComponent()
+        T& addComponent()
         {
             T* component = new T();
             _components.push_back(reinterpret_cast<T*>(component));
@@ -27,7 +25,7 @@ namespace KEnyin
         }
 
         template<typename T>
-        T* getComponent()
+        T& getComponent()
         {
             auto found = std::find_if(_components.begin(), _components.end(), [](Component* ptr)
                 {
@@ -49,6 +47,7 @@ namespace KEnyin
         bool _enabled = true;
         VComponents _components;
         Transform* _transform;
+        Scene& _scene;
     };
 }
 

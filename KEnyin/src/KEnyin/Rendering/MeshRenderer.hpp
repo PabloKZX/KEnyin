@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KEnyin/Components/Component.hpp"
+#include "KEnyin/ECS/Component.hpp"
 
 namespace KEnyin
 {

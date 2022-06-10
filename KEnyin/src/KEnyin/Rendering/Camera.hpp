@@ -4,8 +4,7 @@
 
 namespace KEnyin
 {
-    class Renderer : Component
+    class Camera : Component
     {
-
     };
 }

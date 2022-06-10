@@ -20,8 +20,8 @@ namespace KEnyin
 {
     namespace application_constants
     {
-        constexpr unsigned int kApplicationWidth = 800;
-        constexpr unsigned int kApplicationHeight = 600;
+        constexpr unsigned int kApplicationWidth = 1280;
+        constexpr unsigned int kApplicationHeight = 720;
         constexpr int kMsPerUpdate = 40;
     }
 
@@ -204,7 +204,7 @@ namespace KEnyin
             model = glm::translate(model, cubePos);
 
             float angle = 20.0f * index++;
-            model = glm::rotate(model, glm::radians(angle), { 1.0f, 0.3f, 0.5f });
+            model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), { 1.0f, 0.3f, 0.5f });
 
             _shader->setMatrix4("uModel", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);

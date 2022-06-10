@@ -32,6 +32,11 @@ namespace KEnyin
     {
         class Editor;
     }
+
+    namespace SceneManagement
+    {
+        class SceneManager;
+    }
 }
 
 namespace KEnyin
@@ -41,6 +46,7 @@ namespace KEnyin
     private:
         ADD_SERVICE(Application, _application)
         ADD_SERVICE_NAME(Editor::Editor, _editor, Editor)
+        ADD_SERVICE_NAME(SceneManagement::SceneManager, _sceneManager, SceneManager)
 
     public:
         ~ServiceLocator() = default;

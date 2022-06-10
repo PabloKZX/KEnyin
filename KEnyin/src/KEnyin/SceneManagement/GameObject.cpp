@@ -1,34 +1,14 @@
 #include "pch.hpp"
 #include "KEnyin/SceneManagement/GameObject.hpp"
+#include "KEnyin/SceneManagement/SceneManager.hpp"
 
 namespace KEnyin
 {
     GameObject::GameObject(const std::string& name)
         : _name(name)
         , _transform(new Transform())
+        , _scene(ServiceLocator::get().getSceneManager().getActiveScene())
     {
-    }
-
-    GameObject::GameObject(const GameObject& other)
-    {
-        KEWarn_Engine("{0} copied", _name);
-    }
-
-    GameObject::GameObject(GameObject&& other) noexcept
-    {
-        KEWarn_Engine("{0} moved", _name);
-
-        _name = other._name;
-        _enabled = other._enabled;
-        _transform = other._transform;
-
-        other._transform = nullptr;
-
-        for (size_t i = 0; i < other._components.size(); i++)
-        {
-            _components.push_back(other._components[i]);
-            other._components[i] = nullptr;
-        }
     }
 
     GameObject::~GameObject()
