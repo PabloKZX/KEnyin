@@ -223,7 +223,7 @@ namespace KEnyin
         glUniform1f(glGetUniformLocation(_shaderID, name), value);
     }
 
-    void Shader::setInteger(const char* name, int value)
+    void Shader::setInt(const char* name, int value)
     {
         glUniform1i(glGetUniformLocation(_shaderID, name), value);
     }

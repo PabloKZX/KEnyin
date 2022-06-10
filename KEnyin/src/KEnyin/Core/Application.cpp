@@ -71,11 +71,15 @@ namespace KEnyin
 
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kes");
+        _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
 
         // Textures
         _texture = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/container.jpg");
+        _texture2 = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/awesomeface.png");
 
+        _shader->bind();
+        _shader->setInt("uTexture1", 0);
+        _shader->setInt("uTexture2", 1);
     }
     
     Application::~Application()
@@ -143,6 +147,10 @@ namespace KEnyin
 
         _shader->bind();
         _texture->bind(GL_TEXTURE0);
+        _texture2->bind(GL_TEXTURE1);
+
+        _shader->bind();
+            
         glBindVertexArray(_vertexArray);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
