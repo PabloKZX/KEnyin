@@ -4,10 +4,4 @@
 namespace KEnyin
 {
 
-    Renderer::Renderer()
-        : Component(ComponentType::Renderer)
-    {
-
-    }
-
 }

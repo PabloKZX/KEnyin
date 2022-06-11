@@ -3,8 +3,5 @@
 
 namespace KEnyin
 {
-    Camera::Camera()
-        : Component(ComponentType::Camera)
-    {
-    }
+
 }

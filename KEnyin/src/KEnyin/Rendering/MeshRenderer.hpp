@@ -7,7 +7,7 @@ namespace KEnyin
     class MeshRenderer : public Component
     {
     public:
-        virtual void onRender();
+        MeshRenderer() = default;
     };
 }
 

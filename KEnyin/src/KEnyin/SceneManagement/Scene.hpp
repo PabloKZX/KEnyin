@@ -1,29 +1,36 @@
 #pragma once
 
-#include "KEnyin/ECS/GameObject.hpp"
-#include "KEnyin/ECS/SceneRegistry.hpp"
+#include "KEnyin/ECS/EntityManager.hpp"
+
+namespace KEnyin
+{
+    class GameObject;
+}
 
 namespace KEnyin
 {
     class Scene
     {
     public:
-        using VGameObjects = std::vector<std::unique_ptr<GameObject>>;
-
-        Scene() {};
+        Scene();
         Scene(const std::string& name) : _name(name) {};
         ~Scene() = default;
 
-        void onUpdate(float timestep);
-        void onRender();
+        GameObjectSharedPtr newGameObject();
 
-        void addGameObject(GameObject&& gameObject);
+        template<typename T>
+        void addComponent(GameObject gameobject)
+        {
+            //_gameObjects[gameobject.ID].mask.set(T::getStaticType());
+        }
 
         template<typename T>
         void onComponentAdded(const GameObject& gameObject, const T& component);
+
+        void loadSampleScene();
+        EntityID getNewEntityID() const;
     private:
         std::string _name = "New Scene";
-        
-        SceneRegistry _registry;
+        EntityManager _entityManager;
     };
 }

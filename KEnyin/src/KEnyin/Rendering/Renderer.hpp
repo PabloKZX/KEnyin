@@ -7,6 +7,6 @@ namespace KEnyin
     class Renderer : Component
     {
     public:
-        Renderer();
+        Renderer() = default;
     };
 }

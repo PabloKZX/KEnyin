@@ -1,6 +1,7 @@
 #pragma once
 
 #include "KEnyin/ECS/Component.hpp"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
@@ -11,7 +12,7 @@ namespace KEnyin
     class Transform : public Component
     {
     public:
-        Transform() : Component(ComponentType::Transform) {};
+        Transform() = default;
         Transform(const Transform&) = default;
         ~Transform() = default;
 

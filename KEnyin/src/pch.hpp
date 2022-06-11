@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <bitset>
 #include <cassert>
 #include <cctype>
 #include <ctime>

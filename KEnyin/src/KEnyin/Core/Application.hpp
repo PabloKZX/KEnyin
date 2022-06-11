@@ -2,11 +2,11 @@
 
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
-#include "KEnyin/SceneManagement/Scene.hpp"
 
 //TODO: Delete
 #include "KEnyin/Rendering/Shader.hpp"
 #include "KEnyin/Rendering/Texture2D.hpp"
+#include "KEnyin/SceneManagement/Scene.hpp"
 
 namespace KEnyin
 {
@@ -23,7 +23,7 @@ namespace KEnyin
         inline Scene& getActiveScene() const { return *_activeScene; }
     private:
         bool onWindowClosed(WindowCloseEvent e);
-        void update(float timestep);
+        void update(long long timestep);
         void render();
 
         std::unique_ptr<Window> _window;

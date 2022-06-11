@@ -1,53 +1,35 @@
 #pragma once
 
-#include "KEnyin/ECS/Component.hpp"
-#include "KEnyin/ECS/Transform.hpp"
+#include "KEnyin/ECS/EntityManager.fwd.hpp"
+
+namespace KEnyin
+{
+    class Scene;
+}
 
 namespace KEnyin
 {
     class GameObject
     {
-        friend class Scene;
-
     public:
-        using VComponents = std::vector<Component*>;
+        GameObject();
+        ~GameObject() = default;
 
-        GameObject(const std::string& name = "New GameObject");
-        ~GameObject();
-
-        template<typename T>
-        T& addComponent()
+        template<typename T>  
+        T& AddComponent()
         {
-            T* component = new T();
-            _components.push_back(reinterpret_cast<T*>(component));
-            component->onStart();
+            //HZ_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
+            T& component = T();
+            _scene->onComponentAdded<T>(*this, component);
             return component;
         }
 
-        template<typename T>
-        T& getComponent()
-        {
-            auto found = std::find_if(_components.begin(), _components.end(), [](Component* ptr)
-                {
-                    return typeid(*ptr) == typeid(T);
-                });
-
-            return found == _components.end() ? nullptr : dynamic_cast<T*>(*found);
-        }
-
-        inline bool isEnabled() const { return _enabled; }
-        inline void setEnabled(bool enabled) { _enabled = enabled; }
-
+        inline EntityID getId() const { return _id; }
+        inline ComponentMask getMask() const { return _componentMask; }
     private:
-        void onStart();
-        void onUpdate(float timestamp);
-        void onRender();
-
-        std::string _name = "New GameObject";
-        bool _enabled = true;
-        VComponents _components;
-        Transform* _transform;
-        Scene& _scene;
+        ComponentMask _componentMask;
+        EntityID _id;
+        const Scene& _scene;
     };
 }
 

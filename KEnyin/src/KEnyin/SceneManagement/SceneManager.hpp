@@ -10,10 +10,18 @@ namespace KEnyin::SceneManagement
         SceneManager() = default;
         ~SceneManager() = default;
 
-        inline Scene& getActiveScene() const { return *_activeScene; }
+        inline void setActiveScene(std::shared_ptr<Scene> scene)
+        {
+            _activeScene = scene;
+        };
+
+        inline const Scene& const getActiveScene()
+        {
+            return *_activeScene;
+        };
 
     private:
-        std::unique_ptr<Scene> _activeScene;
+        std::shared_ptr<Scene> _activeScene;
     };
 }
 

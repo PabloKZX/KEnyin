@@ -7,7 +7,7 @@
 #include "KEnyin/Input/KeyCodes.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
 
-#include "KEnyin/ECS/GameObject.hpp"
+#include "KEnyin/SceneManagement/SceneManager.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -122,6 +122,11 @@ namespace KEnyin
         _shader->bind();
         _shader->setInt("uTexture1", 0);
         _shader->setInt("uTexture2", 1);
+
+        std::shared_ptr<Scene> scene = std::make_shared<Scene>();
+        ServiceLocator::get().getSceneManager().setActiveScene(scene);
+
+        scene->loadSampleScene();
     }
     
     Application::~Application()
@@ -137,7 +142,7 @@ namespace KEnyin
         while (_running)
         {
             auto currentTime = std::chrono::system_clock::now();
-            double elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
+            long long elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
 
             previousTime = currentTime;
             lag += elapsed;
@@ -166,7 +171,7 @@ namespace KEnyin
         return true;
     }
 
-    void Application::update(float timestep)
+    void Application::update(long long timestep)
     {
 
     }
