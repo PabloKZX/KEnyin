@@ -21,6 +21,12 @@ project "Glad"
     filter "system:windows"
         systemversion "latest"
 
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            "${PROJECT_DIR}/include"
+        }
+
     filter "configurations:Debug"
         runtime "Debug"
         symbols "on"

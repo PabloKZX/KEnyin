@@ -11,11 +11,12 @@ workspace "KEnyin"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
 includeDirs = {}
-includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
 includeDirs["glad"] = "KEnyin/vendor/glad/include"
-includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
 includeDirs["glm"] = "KEnyin/vendor/glm"
+includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
+includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
 includeDirs["stb_image"] = "KEnyin/vendor/stb_image"
 
 include "KEnyin/vendor/GLFW"
@@ -32,8 +33,16 @@ project "KEnyin"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    pchheader "pch.hpp"
-    pchsource "KEnyin/src/pch.cpp"
+-- Precompiled headers for different actions
+	filter "action:vs*"
+		pchheader "pch.hpp"
+		pchsource "KEnyin/src/pch.cpp"
+
+	filter "action:xcode4"
+	    pchheader "src/pch.hpp"
+		pchsource "KEnyin/src/pch.cpp"
+
+	filter {}
 
     files
     {
@@ -43,6 +52,9 @@ project "KEnyin"
 
         "%{includeDirs.stb_image}/**.h",
         "%{includeDirs.stb_image}/**.cpp",
+        
+        "vendor/glm/glm/**.hpp",
+        "vendor/glm/glm/**.inl",
     }
 
     includedirs
@@ -55,6 +67,31 @@ project "KEnyin"
         "%{includeDirs.glm}",
         "%{includeDirs.stb_image}",
     }
+
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            "${PROJECT_DIR}/src",
+            "${PROJECT_DIR}/vendor/spdlog/include",
+            "${PROJECT_DIR}/vendor/GLFW/include",
+            "${PROJECT_DIR}/vendor/Glad/include",
+            "${PROJECT_DIR}/vendor/glm",
+            "${PROJECT_DIR}/vendor/ImGui",
+            "${PROJECT_DIR}/vendor/stb_image",
+        }
+
+    filter "system:macosx"
+        links
+        {
+            "OpenGL.framework",
+            "Cocoa.framework",
+            "OpenGL.framework",
+            "IOKit.framework",
+            "CoreFoundation.framework",
+            "QuartzCore.framework",
+        }
+
+    filter {}
 
     links
     {
@@ -79,6 +116,7 @@ project "KEnyin"
     filter "system:macosx"
         staticruntime "On"
         systemversion "latest"
+        buildoptions { "-std=c++11", "-lgdi32" }
 
         defines
         {
@@ -129,6 +167,16 @@ project "KEnyinApp"
         "%{includeDirs.glm}",
     }
 
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            "${PROJECT_DIR} /../KEnyin/vendor/glm",
+            "${PROJECT_DIR} /../KEnyin/vendor/spdlog/include",
+            "${PROJECT_DIR} /../KEnyin/src"
+        }
+
+    filter {}
+
     links
     {
         "KEnyin"
@@ -141,6 +189,15 @@ project "KEnyinApp"
         defines
         {
             "KE_PLATFORM_WINDOWS",
+        }
+
+    filter "system:macosx"
+        systemversion "latest"
+        buildoptions { "-std=c++11", "-lgdi32" }
+
+        defines
+        {
+            "HZ_PLATFORM_MACOS"
         }
 
     filter "configurations:Debug"

@@ -4,8 +4,13 @@
 #include "KEnyin/Core/Base.hpp"
 
 #ifdef KE_ASSERTS_ENABLED
-    #define KECheck(cnd, ...) {if(!(cnd)) {KEError("Assert triggered: {0} ", __VA_ARGS__); __debugbreak();}}
-    #define KECheck_Engine(cnd, ...) {if(!(cnd)) {KEError_Engine("Assert triggered: {0} ", __VA_ARGS__); __debugbreak();}}
+    #ifdef HZ_PLATFORM_WINDOWS
+        #define KECheck(x, ...) { if(!(x)) { KEError("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+        #define KECheck_Engine(x, ...) { if(!(x)) { KEError_Engine("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+    #else
+        #define KECheck(x, ...) { if(!(x)) { KEError("Assertion Failed: {0}", __VA_ARGS__); } }
+        #define KECheck_Engine(x, ...) { if(!(x)) { KEError_Engine("Assertion Failed: {0}", __VA_ARGS__); } }
+    #endif
 #else
     #define KECheck(cnd, ...)
     #define KECheck_Engine(cnd, ...)

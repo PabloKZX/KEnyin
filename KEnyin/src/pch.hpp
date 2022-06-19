@@ -22,4 +22,3 @@
 #include "KEnyin/Core/Log.hpp"
 #include "KEnyin/Core/Assert.hpp"
 #include "KEnyin/Core/ServiceLocator.hpp"
-#include <glm/glm.hpp>

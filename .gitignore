@@ -15,3 +15,9 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+
+# Xcode files and folder
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+**.ds_store

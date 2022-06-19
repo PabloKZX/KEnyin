@@ -7,3 +7,6 @@
 [submodule "KEnyin/vendor/glm"]
 	path = KEnyin/vendor/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "spdlog"]
+	path = KEnyin/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
