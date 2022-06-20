@@ -12,7 +12,7 @@ namespace KEnyin
     class Material
     {
     public:
-        Material();
+        Material() = default;
         Material(const Shader& shader);
         Material(const Shader& shader, const Color& color);
         ~Material();

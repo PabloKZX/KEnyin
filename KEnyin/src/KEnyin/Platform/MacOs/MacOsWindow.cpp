@@ -1,32 +1,26 @@
 #include "pch.hpp"
-#include "KEnyin/Platform/Windows/WindowsWindow.hpp"
+#include "KEnyin/Platform/MacOs/MacOsWindow.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Events/KeyEvent.hpp"
 #include "KEnyin/Events/MouseEvent.hpp"
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-#ifdef KE_PLATFORM_WINDOWS
+#ifdef KE_PLATFORM_MACOS
 namespace KEnyin
 {
     static bool glfwInitialized = false;
 
-    Window* Window::create(const WindowProps& windowData)
-    {
-        return new WindowsWindow(windowData);
-    }
-
-    WindowsWindow::WindowsWindow(const WindowProps& windowData)
+    MacOsWindow::MacOsWindow(const WindowProps& windowData)
     {
         init(windowData);
     }
 
-    WindowsWindow::~WindowsWindow()
+    MacOsWindow::~MacOsWindow()
     {
         shutdown();
     }
 
-    void WindowsWindow::init(const WindowProps& windowProps)
+    void MacOsWindow::init(const WindowProps& windowProps)
     {
         _windowData.title = windowProps.title;
         _windowData.width = windowProps.width;
@@ -41,8 +35,9 @@ namespace KEnyin
             KECheck_Engine(success, "Failed to initialize GLFW!");
 
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
             glfwSetErrorCallback([](int error, const char* desc)
             {
@@ -164,16 +159,17 @@ namespace KEnyin
 
     }
 
-    void WindowsWindow::shutdown()
+    void MacOsWindow::shutdown()
     {
         glfwDestroyWindow(_nativeWindow);
         glfwTerminate();
     }
 
-    void WindowsWindow::onUpdate()
+    void MacOsWindow::onUpdate()
     {
         glfwSwapBuffers(_nativeWindow);
         glfwPollEvents();
     }
 }
 #endif
+

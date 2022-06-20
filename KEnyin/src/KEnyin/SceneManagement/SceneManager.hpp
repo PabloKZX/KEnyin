@@ -2,7 +2,7 @@
 
 #include "KEnyin/SceneManagement/Scene.hpp"
 
-namespace KEnyin::SceneManagement
+namespace KEnyin
 {
     class SceneManager
     {
@@ -15,7 +15,7 @@ namespace KEnyin::SceneManagement
             _activeScene = scene;
         };
 
-        inline const Scene& const getActiveScene()
+        inline const Scene& getActiveScene()
         {
             return *_activeScene;
         };

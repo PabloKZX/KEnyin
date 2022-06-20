@@ -20,7 +20,7 @@ namespace KEnyin
         {
             //HZ_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
             T& component = T();
-            _scene->onComponentAdded<T>(*this, component);
+            //_scene->onComponentAdded<T>(*this, component);
             return component;
         }
 

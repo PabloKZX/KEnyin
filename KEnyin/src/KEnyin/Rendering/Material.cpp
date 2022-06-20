@@ -4,12 +4,12 @@
 
 namespace KEnyin
 {
-    Material::Material()
-    : _shader(Shader("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs"))
-    , _color(Color())
-    {
-
-    }
+//    Material::Material()
+//    : _shader(Shader("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.vs", "D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.fs"))
+//    , _color(Color())
+//    {
+//
+//    }
 
     Material::Material(const Shader& shader)
     : _shader(shader)

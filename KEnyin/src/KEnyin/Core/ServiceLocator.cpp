@@ -27,7 +27,7 @@ namespace KEnyin
         _application = application;
 
         _editor = new Editor::Editor();
-        _sceneManager = new SceneManagement::SceneManager();
+        _sceneManager = new SceneManager();
     }
 
     void ServiceLocator::clearServices()

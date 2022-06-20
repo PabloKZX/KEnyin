@@ -52,7 +52,7 @@ project "KEnyin"
 
         "%{includeDirs.stb_image}/**.h",
         "%{includeDirs.stb_image}/**.cpp",
-        
+
         "vendor/glm/glm/**.hpp",
         "vendor/glm/glm/**.inl",
     }
@@ -68,6 +68,19 @@ project "KEnyin"
         "%{includeDirs.stb_image}",
     }
 
+    links
+    {
+        "GLFW",
+        "glad",
+        "ImGui",
+    }
+
+    filter "system:windows"
+        links
+        {
+            "opengl32.lib"
+        }
+
     filter "action:xcode4"
         sysincludedirs
         {
@@ -78,28 +91,19 @@ project "KEnyin"
             "${PROJECT_DIR}/vendor/glm",
             "${PROJECT_DIR}/vendor/ImGui",
             "${PROJECT_DIR}/vendor/stb_image",
+            "${PROJECT_DIR}/vendor/ImGui",
         }
 
     filter "system:macosx"
         links
         {
-            "OpenGL.framework",
             "Cocoa.framework",
-            "OpenGL.framework",
             "IOKit.framework",
             "CoreFoundation.framework",
-            "QuartzCore.framework",
+            "Opengl.framework",
         }
 
     filter {}
-
-    links
-    {
-        "GLFW",
-        "opengl32.lib",
-        "glad",
-        "ImGui",
-    }
 
     -- PLATFORM FILTERS
 
@@ -115,12 +119,14 @@ project "KEnyin"
 
     filter "system:macosx"
         staticruntime "On"
-        systemversion "latest"
-        buildoptions { "-std=c++11", "-lgdi32" }
+        systemversion "11.3"
+        buildoptions "-std=c++20"
 
         defines
         {
             "KE_PLATFORM_MACOS",
+            "GLFW_INCLUDE_NONE",
+            "__APPLE__"
         }
 
     -- CONFIGURATION FILTERS
@@ -145,13 +151,12 @@ project "KEnyinApp"
     location "KEnyinApp"
     kind "ConsoleApp"
     language "C++"
-    staticruntime "On"
-    language "C++"
+    staticruntime "off"
     cppdialect "c++latest"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-    
+
     files
     {
         "%{prj.name}/src/**.h",
@@ -183,7 +188,6 @@ project "KEnyinApp"
     }
 
     filter "system:windows"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -192,12 +196,19 @@ project "KEnyinApp"
         }
 
     filter "system:macosx"
-        systemversion "latest"
-        buildoptions { "-std=c++11", "-lgdi32" }
+        systemversion "11.3"
+        buildoptions "-std=c++20"
 
         defines
         {
             "HZ_PLATFORM_MACOS"
+        }
+
+        links
+        {
+            "Cocoa.framework",
+            "IOKit.framework",
+            "CoreFoundation.framework"
         }
 
     filter "configurations:Debug"

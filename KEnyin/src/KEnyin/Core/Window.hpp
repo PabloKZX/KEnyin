@@ -10,6 +10,7 @@ namespace KEnyin
         std::string title = "KEnyin Window";
         int width = 1280;
         int height = 720;
+        
     };
 
     class Window

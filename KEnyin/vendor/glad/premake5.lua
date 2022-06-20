@@ -21,6 +21,9 @@ project "Glad"
     filter "system:windows"
         systemversion "latest"
 
+    filter "system:macosx"
+	systemversion "11.3"
+
     filter "action:xcode4"
         sysincludedirs
         {

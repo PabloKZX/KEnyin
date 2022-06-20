@@ -1,6 +1,7 @@
 #include "pch.hpp"
 #include "KEnyin/Rendering/Shader.hpp"
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace KEnyin
 {

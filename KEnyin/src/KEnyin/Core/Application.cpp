@@ -5,9 +5,9 @@
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
-#include "KEnyin/Rendering/Shader.hpp"
 
-#include "KEnyin/SceneManagement/SceneManager.hpp"
+#include "KEnyin/Rendering/Shader.hpp"
+#include "KEnyin/Rendering/Texture2D.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -28,8 +28,14 @@ namespace KEnyin
     Application::Application()
     {
         using namespace application_constants;
+        
+        WindowProps props;
+        props.title = "KEnyin";
+        props.width = kApplicationWidth;
+        props.height = kApplicationHeight;
 
-        _window = std::unique_ptr<Window>(Window::create({ "KEnyin", kApplicationWidth, kApplicationHeight}));
+        //TODO: move props instead on copying
+        _window = std::unique_ptr<Window>(Window::create(props));
         _window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 
         ServiceLocator::get().loadServices(this);
@@ -118,13 +124,13 @@ namespace KEnyin
         // Textures
         _texture = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/container.jpg");
         _texture2 = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/awesomeface.png");
-
+        
         _shader->bind();
         _shader->setInt("uTexture1", 0);
         _shader->setInt("uTexture2", 1);
 
         std::shared_ptr<Scene> scene = std::make_shared<Scene>();
-        ServiceLocator::get().getSceneManager().setActiveScene(scene);
+//        ServiceLocator::get().getSceneManager().setActiveScene(scene);
 
         scene->loadSampleScene();
     }
