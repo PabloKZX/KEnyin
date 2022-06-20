@@ -119,11 +119,21 @@ namespace KEnyin
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
 
+#ifdef KE_PLATFORM_WINDOWS
         _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
 
         // Textures
         _texture = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/container.jpg");
         _texture2 = std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/awesomeface.png");
+#endif
+
+#ifdef KE_PLATFORM_MACOS
+        _shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
+
+        // Textures
+        _texture = std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyin/assets/container.jpg");
+        _texture2 = std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyin/assets/awesomeface.png");
+#endif
         
         _shader->bind();
         _shader->setInt("uTexture1", 0);
@@ -131,8 +141,7 @@ namespace KEnyin
 
         std::shared_ptr<Scene> scene = std::make_shared<Scene>();
 //        ServiceLocator::get().getSceneManager().setActiveScene(scene);
-
-        scene->loadSampleScene();
+//        scene->loadSampleScene();
     }
     
     Application::~Application()
