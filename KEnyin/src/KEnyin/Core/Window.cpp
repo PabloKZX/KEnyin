@@ -1,3 +1,5 @@
+#include "pch.hpp"
+
 #ifdef KE_PLATFORM_WINDOWS
     #include "KEnyin/Platform/Windows/WindowsWindow.hpp"
 #elif KE_PLATFORM_MACOS

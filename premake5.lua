@@ -100,7 +100,7 @@ project "KEnyin"
             "Cocoa.framework",
             "IOKit.framework",
             "CoreFoundation.framework",
-            "Opengl.framework",
+            "OpenGL.framework",
         }
 
     filter {}
@@ -188,6 +188,7 @@ project "KEnyinApp"
     }
 
     filter "system:windows"
+        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -196,6 +197,7 @@ project "KEnyinApp"
         }
 
     filter "system:macosx"
+        staticruntime "On"
         systemversion "11.3"
         buildoptions "-std=c++20"
 
