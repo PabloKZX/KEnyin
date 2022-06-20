@@ -61,7 +61,9 @@ namespace KEnyin
         KECheck_Engine(success, "Failed to initialize glad!");
 
         //TODO: This will change when rendering to an ImGui Window
-        glViewport(0, 0, _windowData.width, _windowData.height);
+        int framebufferWidth, framebufferHeight;
+        glfwGetFramebufferSize(_nativeWindow, &framebufferWidth, &framebufferHeight);
+        glViewport(0, 0, framebufferWidth, framebufferHeight);
 
         glEnable(GL_DEPTH_TEST);
 
