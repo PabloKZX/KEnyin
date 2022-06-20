@@ -19,9 +19,11 @@ includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
 includeDirs["ImGui"] = "KEnyin/vendor/ImGui"
 includeDirs["stb_image"] = "KEnyin/vendor/stb_image"
 
+group "Dependencies"
 include "KEnyin/vendor/GLFW"
 include "KEnyin/vendor/glad"
 include "KEnyin/vendor/ImGui"
+group ""
 
 project "KEnyin"
     location "KEnyin"
