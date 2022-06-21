@@ -4,7 +4,7 @@
 
 namespace KEnyin
 {
-    class CustomBehaviour : Component
+    class CustomBehaviour : public Component
     {
     public:
         CustomBehaviour() = default;

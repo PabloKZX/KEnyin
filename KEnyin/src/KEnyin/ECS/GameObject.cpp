@@ -5,11 +5,10 @@
 
 namespace KEnyin
 {
-
     GameObject::GameObject()
-        : _scene(ServiceLocator::get().getSceneManager().getActiveScene())
+    : ID(UUID())
+    , _scene(ServiceLocator::get().getSceneManager().getActiveScene())
     {
-        _id = _scene.getNewEntityID();
+        _scene->_entityManager->onGameObjectAdded(this);
     }
-
 }

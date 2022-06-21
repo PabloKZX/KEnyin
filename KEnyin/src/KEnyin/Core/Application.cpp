@@ -9,6 +9,8 @@
 #include "KEnyin/Rendering/Shader.hpp"
 #include "KEnyin/Rendering/Texture2D.hpp"
 
+#include "KEnyin/SceneManagement/SceneManager.hpp"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -119,6 +121,8 @@ namespace KEnyin
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
 
+
+        //TODO: Local Paths
 #ifdef KE_PLATFORM_WINDOWS
         _shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
 
@@ -140,8 +144,8 @@ namespace KEnyin
         _shader->setInt("uTexture2", 1);
 
         std::shared_ptr<Scene> scene = std::make_shared<Scene>();
-//        ServiceLocator::get().getSceneManager().setActiveScene(scene);
-//        scene->loadSampleScene();
+        ServiceLocator::get().getSceneManager().setActiveScene(scene);
+        scene->loadSampleScene();
     }
     
     Application::~Application()

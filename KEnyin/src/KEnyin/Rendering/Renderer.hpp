@@ -4,7 +4,7 @@
 
 namespace KEnyin
 {
-    class Renderer : Component
+    class Renderer : public Component
     {
     public:
         Renderer() = default;

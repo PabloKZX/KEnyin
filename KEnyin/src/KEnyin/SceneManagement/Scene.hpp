@@ -5,10 +5,7 @@
 namespace KEnyin
 {
     class GameObject;
-}
 
-namespace KEnyin
-{
     class Scene
     {
     public:
@@ -16,21 +13,11 @@ namespace KEnyin
         Scene(const std::string& name) : _name(name) {};
         ~Scene() = default;
 
-        GameObjectSharedPtr newGameObject();
-
-        template<typename T>
-        void addComponent(GameObject gameobject)
-        {
-            //_gameObjects[gameobject.ID].mask.set(T::getStaticType());
-        }
-
-        template<typename T>
-        void onComponentAdded(const GameObject& gameObject, const T& component);
-
         void loadSampleScene();
-        EntityID getNewEntityID() const;
     private:
         std::string _name = "New Scene";
-        EntityManager _entityManager;
+        std::unique_ptr<EntityManager> _entityManager;
+
+        friend class GameObject;
     };
 }

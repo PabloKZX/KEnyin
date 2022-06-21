@@ -4,7 +4,7 @@
 
 namespace KEnyin
 {
-    class Camera : Component
+    class Camera : public Component
     {
     public:
         Camera() = default;

@@ -15,9 +15,9 @@ namespace KEnyin
             _activeScene = scene;
         };
 
-        inline const Scene& getActiveScene()
+        inline std::shared_ptr<Scene> getActiveScene()
         {
-            return *_activeScene;
+            return _activeScene;
         };
 
     private:

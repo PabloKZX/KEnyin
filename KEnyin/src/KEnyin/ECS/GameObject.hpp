@@ -1,35 +1,29 @@
 #pragma once
-
-#include "KEnyin/ECS/EntityManager.fwd.hpp"
-
-namespace KEnyin
-{
-    class Scene;
-}
+ 
+#include "KEnyin/ECS/EntityManager.hpp"
+#include "KEnyin/SceneManagement/Scene.hpp"
 
 namespace KEnyin
 {
     class GameObject
     {
     public:
+        std::string name = "New Game Object";
+        EntityID ID;
+
         GameObject();
         ~GameObject() = default;
 
         template<typename T>  
-        T& AddComponent()
+        std::shared_ptr<T> AddComponent()
         {
-            //HZ_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
-            T& component = T();
-            //_scene->onComponentAdded<T>(*this, component);
+            std::shared_ptr<T> component = std::make_shared<T>();
+            _scene->_entityManager->onComponentAdded<T>(ID, this, component);
             return component;
         }
 
-        inline EntityID getId() const { return _id; }
-        inline ComponentMask getMask() const { return _componentMask; }
     private:
-        ComponentMask _componentMask;
-        EntityID _id;
-        const Scene& _scene;
+        std::shared_ptr<Scene> _scene;
     };
 }
 
