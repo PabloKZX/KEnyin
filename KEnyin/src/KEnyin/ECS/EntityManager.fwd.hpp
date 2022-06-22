@@ -13,7 +13,8 @@ namespace KEnyin
     constexpr int kMaxEntities = 100;
 
     using EntityID = uint64_t;
-    using ComponentID = std::uint8_t;
+    using ComponentMask = std::bitset<kMaxComponents>;
+    using ComponentTypeID = std::uint8_t;
 
     using GameObjectPtr = std::shared_ptr<GameObject>;
     using VGameObjects = std::vector<GameObjectPtr>;

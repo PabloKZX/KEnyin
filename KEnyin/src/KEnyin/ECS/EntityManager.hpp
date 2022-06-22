@@ -1,30 +1,22 @@
 #pragma once
 
 #include "KEnyin/ECS/EntityManager.fwd.hpp"
+#include "KEnyin/ECS/ECSUtils.hpp"
 
 namespace KEnyin
 {
-    class Component;
-
     class EntityManager
     {
     public:
         using MComponents = std::unordered_map<EntityID, ComponentPtr>;
-        using Registry = std::unordered_map<ComponentID, MComponents>;
+        using Registry = std::unordered_map<ComponentTypeID, MComponents>;
 
         EntityManager() = default;
 
-        template <class T>
-        ComponentID GetID()
-        {
-            static int _componentId = _componentCounter++;
-            return _componentId;
-        }
-
-        template <class T>
+        template <typename T>
         void onComponentAdded(EntityID entityID, GameObject* entity, std::shared_ptr<T> component)
         {
-            const ComponentID componentID = GetID<T>();
+            const ComponentTypeID componentID = ECSUtils::GetComponentTypeID<T>();
 
             ComponentPtr componentPtr = static_cast<ComponentPtr>(component);
 
@@ -36,10 +28,7 @@ namespace KEnyin
             _registry[componentID].insert(std::make_pair(entityID, componentPtr));
         }
 
-        inline void onGameObjectAdded(GameObject* gameObject)
-        {
-            _gameObjects.push_back(std::shared_ptr<GameObject>(gameObject));
-        }
+        void onGameObjectAdded(GameObject* gameObject);
 
         inline const VGameObjects& getGameObjects() { return _gameObjects; }
 
@@ -48,6 +37,5 @@ namespace KEnyin
     private:
         Registry _registry;
         VGameObjects _gameObjects;
-        int _componentCounter = 0;
     };
 }

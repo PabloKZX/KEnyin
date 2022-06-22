@@ -1,5 +1,6 @@
 #include "pch.hpp"
 #include "KEnyin/ECS/EntityManager.hpp"
+#include "KEnyin/ECS/GameObject.hpp"
 
 namespace KEnyin
 {
@@ -19,5 +20,10 @@ namespace KEnyin
         }
 
         KELog_Engine(log);
+    }
+
+    void EntityManager::onGameObjectAdded(GameObject *gameObject)
+    {
+        _gameObjects.push_back(std::shared_ptr<GameObject>(gameObject));
     }
 }

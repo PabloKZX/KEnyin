@@ -24,6 +24,7 @@ namespace KEnyin
 
     private:
         std::shared_ptr<Scene> _scene;
+        ComponentMask _mask;
     };
 }
 

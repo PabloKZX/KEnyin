@@ -4,8 +4,8 @@
 #include "KEnyin/ECS/Transform.hpp"
 #include "KEnyin/Rendering/Camera.hpp"
 #include "KEnyin/Rendering/Renderer.hpp"
-#include "KEnyin/ECS/EntityManager.hpp"
 #include "KEnyin/ECS/CustomBehaviour.hpp"
+#include "KEnyin/ECS/ECSUtils.hpp"
 
 namespace KEnyin
 {
@@ -17,11 +17,11 @@ namespace KEnyin
 
     void Scene::loadSampleScene()
     {
-        KELog_Engine("Transform component ID: {0}", _entityManager->GetID<Transform>());
-        KELog_Engine("Transform component ID: {0}", _entityManager->GetID<Transform>());
-        KELog_Engine("Renderer component ID: {0}", _entityManager->GetID<Renderer>());
-        KELog_Engine("Transform component ID: {0}", _entityManager->GetID<Transform>());
-        KELog_Engine("Camera component ID: {0}", _entityManager->GetID<Camera>());
+        KELog_Engine("Transform component ID: {0}", ECSUtils::GetComponentTypeID<Transform>());
+        KELog_Engine("Transform component ID: {0}", ECSUtils::GetComponentTypeID<Transform>());
+        KELog_Engine("Renderer component ID: {0}", ECSUtils::GetComponentTypeID<Renderer>());
+        KELog_Engine("Transform component ID: {0}", ECSUtils::GetComponentTypeID<Transform>());
+        KELog_Engine("Camera component ID: {0}", ECSUtils::GetComponentTypeID<Camera>());
 
         GameObject gameObject;
         gameObject.name = "Objeto 1";
