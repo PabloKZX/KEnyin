@@ -10,6 +10,8 @@
 #include "KEnyin/Rendering/Texture2D.hpp"
 
 #include "KEnyin/SceneManagement/SceneManager.hpp"
+#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Entity.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -143,9 +145,11 @@ namespace KEnyin
         _shader->setInt("uTexture1", 0);
         _shader->setInt("uTexture2", 1);
 
-        std::shared_ptr<Scene> scene = std::make_shared<Scene>();
-        ServiceLocator::get().getSceneManager().setActiveScene(scene);
-        scene->loadSampleScene();
+        _activeScene = std::make_shared<Scene>();
+        Entity cube = _activeScene->createEntity("Cube");
+        Entity cube2 = _activeScene->createEntity("Cube2");
+        Entity cube3 = _activeScene->createEntity("Cube3");
+        cube.AddComponent<MeshRendererComponent>();
     }
     
     Application::~Application()
@@ -192,7 +196,7 @@ namespace KEnyin
 
     void Application::update(long long timestep)
     {
-
+        _activeScene->onUpdate(timestep);
     }
 
     void Application::render()

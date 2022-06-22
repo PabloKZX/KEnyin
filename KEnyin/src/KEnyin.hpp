@@ -7,3 +7,7 @@
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
 #include "KEnyin/Input/MouseCodes.hpp"
+
+#include "KEnyin/SceneManagement/Scene.hpp"
+#include "KEnyin/SceneManagement/Entity.hpp"
+#include "KEnyin/SceneManagement/Components.hpp"

@@ -28,7 +28,7 @@ namespace KEnyin
 
         std::unique_ptr<Window> _window;
         std::unique_ptr<Shader> _shader;
-        std::unique_ptr<Scene> _activeScene;
+        std::shared_ptr<Scene> _activeScene;
         bool _running = true;
 
         unsigned int _vertexArray;

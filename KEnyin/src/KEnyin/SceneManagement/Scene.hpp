@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KEnyin/ECS/EntityManager.hpp"
+#include <entt.hpp>
 
 namespace KEnyin
 {
@@ -10,14 +10,15 @@ namespace KEnyin
     {
     public:
         Scene();
-        Scene(const std::string& name) : _name(name) {};
-        ~Scene() = default;
+        ~Scene();
 
-        void loadSampleScene();
+        Entity createEntity(const std::string& name = "New Entity");
+
+        void onUpdate(long long timestep);
     private:
-        std::string _name = "New Scene";
-        std::unique_ptr<EntityManager> _entityManager;
+        entt::registry _registry;
 
         friend class Entity;
     };
 }
+ 

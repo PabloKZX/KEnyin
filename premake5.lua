@@ -13,6 +13,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 includeDirs = {}
+includeDirs["entt"] = "KEnyin/vendor/entt/include"
 includeDirs["glad"] = "KEnyin/vendor/glad/include"
 includeDirs["glm"] = "KEnyin/vendor/glm"
 includeDirs["GLFW"] = "KEnyin/vendor/GLFW/include"
@@ -30,7 +31,7 @@ project "KEnyin"
     kind "StaticLib"
     staticruntime "On"
     language "C++"
-    cppdialect "c++latest"
+    cppdialect "c++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -68,6 +69,7 @@ project "KEnyin"
         "%{includeDirs.ImGui}",
         "%{includeDirs.glm}",
         "%{includeDirs.stb_image}",
+        "%{includeDirs.entt}",
     }
 
     links
@@ -122,7 +124,7 @@ project "KEnyin"
     filter "system:macosx"
         staticruntime "On"
         systemversion "11.3"
-        buildoptions "-std=c++20"
+        buildoptions "-std=c++17"
 
         defines
         {
@@ -154,7 +156,7 @@ project "KEnyinApp"
     kind "ConsoleApp"
     language "C++"
     staticruntime "off"
-    cppdialect "c++latest"
+    cppdialect "c++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -172,6 +174,7 @@ project "KEnyinApp"
         "KEnyin/vendor",
         "KEnyin/vendor/spdlog/include",
         "%{includeDirs.glm}",
+        "%{includeDirs.entt}",
     }
 
     filter "action:xcode4"
@@ -201,7 +204,7 @@ project "KEnyinApp"
     filter "system:macosx"
         staticruntime "On"
         systemversion "11.3"
-        buildoptions "-std=c++20"
+        buildoptions "-std=c++17"
 
         defines
         {
