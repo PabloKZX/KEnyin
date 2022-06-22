@@ -4,7 +4,7 @@
 
 namespace KEnyin
 {
-    class GameObject;
+    class Entity;
 
     class Scene
     {
@@ -18,6 +18,6 @@ namespace KEnyin
         std::string _name = "New Scene";
         std::unique_ptr<EntityManager> _entityManager;
 
-        friend class GameObject;
+        friend class Entity;
     };
 }

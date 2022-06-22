@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KEnyin/ECS/EntityManager.fwd.hpp"
+#include "KEnyin/ECS/ECS.fwd.hpp"
 
 namespace KEnyin
 {

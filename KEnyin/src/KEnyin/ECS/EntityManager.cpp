@@ -1,6 +1,6 @@
 #include "pch.hpp"
 #include "KEnyin/ECS/EntityManager.hpp"
-#include "KEnyin/ECS/GameObject.hpp"
+#include "KEnyin/ECS/Entity.hpp"
 
 namespace KEnyin
 {
@@ -8,12 +8,15 @@ namespace KEnyin
     {
         std::string log = "Entity Manager registry: \n";
 
-        for (const auto& [componentId, entityComponentPair] : _registry)
+        for (const auto& entity : _entities)
         {
-            log += "Component ID: " + std::to_string(componentId) + "\n";
-            for (const auto& [entityID, component] : entityComponentPair)
+            log += entity->name + "\n";
+
+            const std::vector<std::string> componentsStrings = GetComponentsStrings(entity->ID);
+
+            for (const auto& component : componentsStrings)
             {
-                log += "Entity ID: " + std::to_string(entityID) + "\n";
+                log += component + "\n";
             }
 
             log += "\n";
@@ -22,8 +25,8 @@ namespace KEnyin
         KELog_Engine(log);
     }
 
-    void EntityManager::onGameObjectAdded(GameObject *gameObject)
+    void EntityManager::onEntityAdded(Entity *gameObject)
     {
-        _gameObjects.push_back(std::shared_ptr<GameObject>(gameObject));
+        _entities.push_back(std::shared_ptr<Entity>(gameObject));
     }
 }

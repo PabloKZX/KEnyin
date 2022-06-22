@@ -6,18 +6,18 @@
 namespace KEnyin
 {
     class EntityManager;
-    class GameObject;
+    class Entity;
     class Component;
 
     constexpr int kMaxComponents = 32;
-    constexpr int kMaxEntities = 100;
+    constexpr int kMaxEntities = 10000;
 
     using EntityID = uint64_t;
     using ComponentMask = std::bitset<kMaxComponents>;
     using ComponentTypeID = std::uint8_t;
 
-    using GameObjectPtr = std::shared_ptr<GameObject>;
-    using VGameObjects = std::vector<GameObjectPtr>;
+    using EntityPtr = std::shared_ptr<Entity>;
+    using VEntities = std::vector<EntityPtr>;
 
     using ComponentPtr = std::shared_ptr<Component>;
 }

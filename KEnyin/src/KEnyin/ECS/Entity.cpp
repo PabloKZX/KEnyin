@@ -1,14 +1,14 @@
 #include "pch.hpp"
-#include "KEnyin/ECS/GameObject.hpp"
+#include "KEnyin/ECS/Entity.hpp"
 #include "KEnyin/ECS/Transform.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
 
 namespace KEnyin
 {
-    GameObject::GameObject()
+    Entity::Entity()
     : ID(UUID())
     , _scene(ServiceLocator::get().getSceneManager().getActiveScene())
     {
-        _scene->_entityManager->onGameObjectAdded(this);
+        _scene->_entityManager->onEntityAdded(this);
     }
 }
