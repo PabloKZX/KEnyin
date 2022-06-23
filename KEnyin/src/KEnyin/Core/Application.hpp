@@ -2,17 +2,18 @@
 
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
-
-//TODO: Delete
-#include "KEnyin/Rendering/Shader.hpp"
-#include "KEnyin/Rendering/Texture2D.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
+
+#include "KEnyin/Rendering/Renderer.hpp"
 
 namespace KEnyin
 {
     class Application
     {
     public:
+        static constexpr unsigned int kApplicationWidth = 1280;
+        static constexpr unsigned int kApplicationHeight = 720;
+
         Application();
         virtual ~Application();
 
@@ -21,24 +22,18 @@ namespace KEnyin
 
         inline Window& getWindow() const { return *_window; }
         inline Scene& getActiveScene() const { return *_activeScene; }
+
+        
     private:
         bool onWindowClosed(WindowCloseEvent e);
         void update(long long timestep);
         void render();
 
         std::unique_ptr<Window> _window;
-        std::unique_ptr<Shader> _shader;
         std::shared_ptr<Scene> _activeScene;
         bool _running = true;
 
-        unsigned int _vertexArray;
-        unsigned int _vertexBuffer;
-        unsigned int _indexBuffer;
-
-        std::unique_ptr<Texture2D> _texture;
-        std::unique_ptr<Texture2D> _texture2;
-
-        std::vector<glm::vec3> _cubePositions;
+        Renderer renderer;
     };
 
     //To be defined by KEnyin Applications
