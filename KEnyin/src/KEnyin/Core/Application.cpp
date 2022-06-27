@@ -6,6 +6,7 @@
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
 
+#include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
 #include "KEnyin/SceneManagement/Components.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
@@ -32,13 +33,10 @@ namespace KEnyin
 
         ServiceLocator::get().loadServices(this);
 
-        renderer.Init();
+        Renderer::Init();
 
         _activeScene = std::make_shared<Scene>();
-        Entity cube = _activeScene->createEntity("Cube");
-        Entity cube2 = _activeScene->createEntity("Cube2");
-        Entity cube3 = _activeScene->createEntity("Cube3");
-        cube.AddComponent<MeshRendererComponent>();
+        _activeScene->loadAsSampleScene();
     }
     
     Application::~Application()
@@ -97,8 +95,9 @@ namespace KEnyin
     {
         using namespace application_constants;
 
-        renderer.BeginScene();
-        renderer.EndScene();
+        Renderer::BeginScene();
+        _activeScene->renderScene();
+        Renderer::EndScene();
 
         ServiceLocator::get().getEditor().update();
         _window->onUpdate();

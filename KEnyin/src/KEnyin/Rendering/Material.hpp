@@ -1,24 +1,23 @@
 #pragma once
 
+#include "pch.hpp"
 #include "KEnyin/Rendering/Color.hpp"
+#include "KEnyin/Rendering/Shader.hpp"
+#include "KEnyin/Rendering/Texture2D.hpp"
 
 namespace KEnyin
 {
     class Shader;
-}
 
-namespace KEnyin
-{
-    class Material
+    struct Material
     {
-    public:
+        std::shared_ptr<Shader> shader;
+        std::vector<std::shared_ptr<Texture2D>> textures;
+        Color color;
+
         Material() = default;
-        Material(const Shader& shader);
-        Material(const Shader& shader, const Color& color);
-        ~Material();
-    private:
-        const Shader& _shader;
-        Color _color;
+        Material(const Material&) = default;
+        ~Material() = default;
     };
 }
 

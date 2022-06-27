@@ -1,7 +1,6 @@
 #pragma once
 
-#include "KEnyin/Rendering/Texture2D.hpp"
-#include "KEnyin/Rendering/Shader.hpp"
+#include "KEnyin/SceneManagement/Components.hpp"
 #include <glm/glm.hpp>
 
 namespace KEnyin
@@ -9,23 +8,18 @@ namespace KEnyin
     class Renderer
     {
     public:
-        void Init();
-        void Shutdown();
+        static void Init();
+        static void Shutdown();
 
-        void BeginScene();
-        void EndScene();
+        static void BeginScene();
+        static void EndScene();
 
-    private:
-        std::unique_ptr<Shader> _shader;
+        static void DrawMesh(const glm::mat4& transform, const MeshRendererComponent& meshComponent);
 
-        unsigned int _vertexArray;
-        unsigned int _vertexBuffer;
-        unsigned int _indexBuffer;
-
-        std::unique_ptr<Texture2D> _texture;
-        std::unique_ptr<Texture2D> _texture2;
-
-        std::vector<glm::vec3> _cubePositions;
-        // Primitives
+    //private:
+    //    unsigned int _vao;
+    //    unsigned int _vbo;
+    //    std::shared_ptr<Material> _material;
+    //    std::shared_ptr<Mesh> _mesh;
     };
 }

@@ -28,4 +28,3 @@ void main()
 {
     fragColor = mix(texture(uTexture1, vTexCoord), texture(uTexture2, vTexCoord), 0.2);
 }
-

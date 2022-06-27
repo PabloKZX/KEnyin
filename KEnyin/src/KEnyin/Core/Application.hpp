@@ -32,8 +32,6 @@ namespace KEnyin
         std::unique_ptr<Window> _window;
         std::shared_ptr<Scene> _activeScene;
         bool _running = true;
-
-        Renderer renderer;
     };
 
     //To be defined by KEnyin Applications

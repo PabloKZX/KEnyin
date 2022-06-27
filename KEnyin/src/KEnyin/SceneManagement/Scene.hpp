@@ -14,8 +14,11 @@ namespace KEnyin
 
         Entity createEntity(const std::string& name = "New Entity");
 
+        void renderScene();
         void onUpdate(long long timestep);
+        void loadAsSampleScene();
     private:
+
         entt::registry _registry;
 
         friend class Entity;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "KEnyin/Rendering/Mesh.hpp"
+#include "KEnyin/Rendering/Material.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
@@ -26,7 +28,7 @@ namespace KEnyin
         {
         }
 
-        glm::mat4 getTransform() const
+        glm::mat4 getTransformationMatrix() const
         {
             return glm::translate(glm::mat4(1.0f), position) * glm::toMat4(glm::quat(rotation)) * glm::scale(glm::mat4(1.0f), scale);
         }
@@ -38,7 +40,8 @@ namespace KEnyin
 
     struct MeshRendererComponent
     {
-        float value;
+        std::shared_ptr<Mesh> mesh;
+        std::shared_ptr<Material> material;
 
         MeshRendererComponent() = default;
         MeshRendererComponent(const MeshRendererComponent&) = default;

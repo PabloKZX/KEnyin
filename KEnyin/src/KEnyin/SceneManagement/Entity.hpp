@@ -1,6 +1,7 @@
 #pragma once
 
 #include "KEnyin/SceneManagement/Scene.hpp"
+#include "KEnyin/SceneManagement/Components.hpp"
 #include <entt.hpp>
 
 namespace KEnyin
@@ -39,6 +40,8 @@ namespace KEnyin
             KECheck_Engine(HasComponent<T>(), "Trying to remove unexisting component!");
             _scene->_registry.remove<T>(_entityHandle);
         }
+
+        inline TransformComponent& getTransform() { return GetComponent<TransformComponent>(); }
     private:
         entt::entity _entityHandle = entt::null;
         Scene* _scene;
