@@ -63,22 +63,11 @@ namespace KEnyin
         std::shared_ptr<Material> material = std::make_shared<Material>();
         std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(Primitives::CreateCube());
 
-        //TODO: Local Paths
-#ifdef KE_PLATFORM_WINDOWS
-        material->shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
+        material->shader = std::make_unique<Shader>("assets/Shaders/Sample.kesh");
 
-        // Textures
-        material->textures.push_back(std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyin/assets/awesomeface.png"));
-#endif
+        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container.jpg"));
+        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/awesomeface.png"));
 
-#ifdef KE_PLATFORM_MACOS
-        material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyin/src/KEnyin/Shaders/Sample.kesh");
-
-        // Textures
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyin/assets/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyin/assets/awesomeface.png"));
-#endif
         material->shader->bind();
         material->shader->setInt("uTexture1", 0);
         material->shader->setInt("uTexture2", 1);
