@@ -18,22 +18,23 @@ namespace KEnyin
 
     void Mesh::refresh()
     {
-        float vertexData[180];
+        std::vector<float> vertexData;
+        vertexData.reserve(vertices.size() * 3 + uvs.size() * 2);
 
-        for (size_t i = 0, vertexIndex = 0; vertexIndex < 36; i+=5, vertexIndex++)
+        for (size_t i = 0; i < vertices.size(); i++)
         {
-            vertexData[i]   = vertices[vertexIndex].x;
-            vertexData[i+1] = vertices[vertexIndex].y;
-            vertexData[i+2] = vertices[vertexIndex].z;
+            vertexData.push_back(vertices[i].x);
+            vertexData.push_back(vertices[i].y);
+            vertexData.push_back(vertices[i].z);
 
-            vertexData[i+3] = uvs[vertexIndex].x;
-            vertexData[i+4] = uvs[vertexIndex].y;
+            vertexData.push_back(uvs[i].x);
+            vertexData.push_back(uvs[i].y);
         }
 
         glBindVertexArray(_vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), &vertexData[0], GL_STATIC_DRAW);
 
         // position attribute
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
