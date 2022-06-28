@@ -1,44 +1,49 @@
 #include "pch.hpp"
-#include "KEnyin/SceneManagement/Scene.hpp"
+#include "KEnyin/Rendering/Primitives.hpp"
+#include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/SceneManagement/Components.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
-#include "KEnyin/Rendering/Renderer.hpp"
-#include "KEnyin/Rendering/Primitives.hpp"
+#include "KEnyin/SceneManagement/Scene.hpp"
+#include "KEnyin/SceneManagement/ScriptableEntity.hpp"
 
 #include <glm/glm.hpp>
 
 namespace KEnyin
 {
-    Scene::Scene()
-    {
-
-    }
-
-    Scene::~Scene()
-    {
-
-    }
-
     Entity Scene::createEntity(const std::string& name)
     {
         Entity entity = { _registry.create(), this };
-        entity.AddComponent<TransformComponent>();
-        entity.AddComponent<TagComponent>(name);
+        entity.AddComponent<Components::Transform>();
+        entity.AddComponent<Components::Tag>(name);
         return entity;
     }
 
-    void Scene::onUpdate(long long timestep)
+    void Scene::onUpdate(Timestep timestep)
     {
+        // Update scripts
+        {
+            _registry.view<Components::NativeScript>().each([=](auto entity, auto& nativeScript)
+            {
+                    //TODO:: Move to Scene::OnScenePlay
+                    if (!nativeScript.instance)
+                    {
+                        nativeScript.instance = nativeScript.instantiateScript();
+                        nativeScript.instance->_entity = Entity{ entity, this };
+                        nativeScript.instance->onCreate();
+                    }
 
+                    nativeScript.instance->onUpdate(timestep);
+            });
+        }
     }
 
     void Scene::renderScene()
     {
-        auto view = _registry.view<TransformComponent, MeshRendererComponent>();
+        auto view = _registry.view<Components::Transform, Components::MeshRenderer>();
 
         for (auto entity : view)
         {
-            auto [transform, mesh] = view.get<TransformComponent, MeshRendererComponent>(entity);
+            auto [transform, mesh] = view.get<Components::Transform, Components::MeshRenderer>(entity);
 
             Renderer::DrawMesh(transform.getTransformationMatrix(), mesh);
         }
@@ -72,6 +77,26 @@ namespace KEnyin
         material->shader->setInt("uTexture1", 0);
         material->shader->setInt("uTexture2", 1);
 
+        class Rotator : public ScriptableEntity
+        {
+        public:
+            void onCreate()
+            {
+
+            }
+
+            void onUpdate(Timestep ts)
+            {
+                auto& transform = GetComponent<Components::Transform>();
+                transform.rotation.y += 0.05f;
+            }
+
+            void onDestroy()
+            {
+
+            }
+        };
+
         int index = 0;
         for (const auto& position : cubePositions)
         {
@@ -79,9 +104,13 @@ namespace KEnyin
 
             cube.getTransform().position = position;
 
-            MeshRendererComponent& meshRenderer = cube.AddComponent<MeshRendererComponent>();
+            Components::MeshRenderer& meshRenderer = cube.AddComponent<Components::MeshRenderer>();
             meshRenderer.mesh = mesh;
             meshRenderer.material = material;
+
+            cube.AddComponent<Components::NativeScript>().bind<Rotator>();
         }
+
+
     }
 }

@@ -14,7 +14,7 @@ namespace KEnyin
         static void BeginScene();
         static void EndScene();
 
-        static void DrawMesh(const glm::mat4& transform, const MeshRendererComponent& meshComponent);
+        static void DrawMesh(const glm::mat4& transform, const Components::MeshRenderer& meshComponent);
 
     //private:
     //    unsigned int _vao;

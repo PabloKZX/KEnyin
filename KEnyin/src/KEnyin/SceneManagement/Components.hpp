@@ -1,5 +1,6 @@
 #pragma once
 
+#include "KEnyin/Core/Timestep.hpp"
 #include "KEnyin/Rendering/Mesh.hpp"
 #include "KEnyin/Rendering/Material.hpp"
 #include <glm/glm.hpp>
@@ -9,41 +10,68 @@
 
 namespace KEnyin
 {
-    struct TagComponent
-    {
-        std::string tag;
+    class ScriptableEntity;
 
-        TagComponent() = default;
-        TagComponent(const TagComponent&) = default;
-        TagComponent(const std::string& tag)
-            : tag(tag) { }
-    };
-
-    struct TransformComponent
+    namespace Components
     {
-        TransformComponent() = default;
-        TransformComponent(const TransformComponent&) = default;
-        TransformComponent(const glm::vec3& position)
-            : position(position)
+        struct Tag
         {
-        }
+            std::string tag;
 
-        glm::mat4 getTransformationMatrix() const
+            Tag() = default;
+            Tag(const Tag&) = default;
+            Tag(const std::string& tag)
+                : tag(tag) { }
+        };
+
+        struct Transform
         {
-            return glm::translate(glm::mat4(1.0f), position) * glm::toMat4(glm::quat(rotation)) * glm::scale(glm::mat4(1.0f), scale);
-        }
+            Transform() = default;
+            Transform(const Transform&) = default;
+            Transform(const glm::vec3& position)
+                : position(position)
+            {
+            }
 
-        glm::vec3 position = { 0.0f, 0.0f, 0.0f };
-        glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
-        glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
-    };
+            glm::mat4 getTransformationMatrix() const
+            {
+                return glm::translate(glm::mat4(1.0f), position) * glm::toMat4(glm::quat(rotation)) * glm::scale(glm::mat4(1.0f), scale);
+            }
 
-    struct MeshRendererComponent
-    {
-        std::shared_ptr<Mesh> mesh;
-        std::shared_ptr<Material> material;
+            glm::vec3 position = { 0.0f, 0.0f, 0.0f };
+            glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
+            glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
+        };
 
-        MeshRendererComponent() = default;
-        MeshRendererComponent(const MeshRendererComponent&) = default;
-    };
+        struct MeshRenderer
+        {
+            std::shared_ptr<Mesh> mesh;
+            std::shared_ptr<Material> material;
+
+            MeshRenderer() = default;
+            MeshRenderer(const MeshRenderer&) = default;
+        };
+
+        struct NativeScript
+        {
+            ScriptableEntity* instance = nullptr;
+
+            // Function pointer
+            // return type (name)(arguments)
+
+            ScriptableEntity*(*instantiateScript)();
+            void (*destroyScript)(Components::NativeScript*);
+
+            template<typename T>
+            void bind()
+            {
+                instantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+                destroyScript = [](Components::NativeScript* nativeScript)
+                { 
+                    delete nativeScript->instance;
+                    nativeScript->instance = nullptr;
+                };
+            }
+        };
+    }
 }

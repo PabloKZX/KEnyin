@@ -26,7 +26,7 @@ namespace KEnyin
         
     private:
         bool onWindowClosed(WindowCloseEvent e);
-        void update(long long timestep);
+        void update(Timestep timestep);
         void render();
 
         std::unique_ptr<Window> _window;

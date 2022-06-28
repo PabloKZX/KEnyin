@@ -1,5 +1,6 @@
 #include "pch.hpp"
 #include "KEnyin/Core/Application.hpp"
+#include "KEnyin/Core/Timestep.hpp"
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Editor/Editor.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
@@ -52,14 +53,14 @@ namespace KEnyin
         while (_running)
         {
             auto currentTime = std::chrono::system_clock::now();
-            long long elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
+            Timestep timestep = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
 
             previousTime = currentTime;
-            lag += elapsed;
+            lag += timestep;
 
             while (lag >= application_constants::kMsPerUpdate)
             {
-                update(elapsed);
+                update(timestep);
                 lag -= application_constants::kMsPerUpdate;
             }
 
@@ -81,13 +82,8 @@ namespace KEnyin
         return true;
     }
 
-    void Application::update(long long timestep)
+    void Application::update(Timestep timestep)
     {
-        if (Input::getKeyDown(KE_KEY_TAB))
-        {
-            KESuccess_Engine("TAB pressed");
-        }
-
         _activeScene->onUpdate(timestep);
     }
 

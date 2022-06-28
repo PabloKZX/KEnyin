@@ -57,7 +57,7 @@ namespace KEnyin
 
     }
 
-    void Renderer::DrawMesh(const glm::mat4& transform, const MeshRendererComponent& meshComponent)
+    void Renderer::DrawMesh(const glm::mat4& transform, const Components::MeshRenderer& meshComponent)
     {
         Mesh& mesh = *meshComponent.mesh;
         Material& material = *meshComponent.material;
