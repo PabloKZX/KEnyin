@@ -1,5 +1,8 @@
 #pragma once
 
+#include "KEnyin/Input/KeyCodes.hpp"
+#include "KEnyin/Input/MouseCodes.hpp"
+
 namespace KEnyin
 {
     class Input

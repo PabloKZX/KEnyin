@@ -1,4 +1,5 @@
 #include "pch.hpp"
+#include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Rendering/Primitives.hpp"
 #include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/SceneManagement/Components/Components.hpp"
@@ -7,6 +8,7 @@
 #include "KEnyin/SceneManagement/ScriptableEntity.hpp"
 
 #include <glm/glm.hpp>
+#include <glfw/glfw3.h>
 
 namespace KEnyin
 {
@@ -86,9 +88,37 @@ namespace KEnyin
         material->shader->setInt("uTexture1", 0);
         material->shader->setInt("uTexture2", 1);
 
-        Entity camera = createEntity("Camera");
-        camera.getTransform().position = { 0, 0, 3 };
-        camera.AddComponent<Components::CameraComponent>();
+        class CameraController : public ScriptableEntity
+        {
+        public:
+            float radius = 10;
+
+            void onCreate()
+            {
+
+            }
+
+            void onUpdate(Timestep ts)
+            {
+                auto& position = GetComponent<Components::Transform>().position;
+
+                float speed = 5.0f;
+
+                if (Input::getKeyDown(Key::A))
+                    position.x -= speed * ts;
+                if (Input::getKeyDown(Key::D))
+                    position.x += speed * ts;
+                if (Input::getKeyDown(Key::W))
+                    position.y += speed * ts;
+                if (Input::getKeyDown(Key::S))
+                    position.y -= speed * ts;
+            }
+
+            void onDestroy()
+            {
+
+            }
+        };
 
         class Rotator : public ScriptableEntity
         {
@@ -109,6 +139,11 @@ namespace KEnyin
 
             }
         };
+
+        Entity camera = createEntity("Camera");
+        camera.getTransform().position = { 0, 0, 3 };
+        camera.AddComponent<Components::CameraComponent>();
+        camera.AddScript<CameraController>();
 
         int index = 0;
         for (const auto& position : cubePositions)

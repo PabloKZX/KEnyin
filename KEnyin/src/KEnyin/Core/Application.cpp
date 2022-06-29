@@ -6,17 +6,15 @@
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
+#include "KEnyin/Utils/PlatformUtils.hpp"
 
-#include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
-#include "KEnyin/SceneManagement/Components/Components.hpp"
-#include "KEnyin/SceneManagement/Entity.hpp"
 
 namespace KEnyin
 {
     namespace application_constants
     {
-        constexpr int kMsPerUpdate = 40;
+        constexpr float kMsPerUpdate = 40.0f;
     }
 
     Application::Application()
@@ -47,20 +45,19 @@ namespace KEnyin
 
     void Application::run()
     {
-        auto previousTime = std::chrono::system_clock::now();
-        double lag = 0.0;
-
+        double previousTime = Time::getTime();
+        double lag = 0.0f;
         while (_running)
         {
-            auto currentTime = std::chrono::system_clock::now();
-            Timestep timestep = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
-
+            double currentTime = Time::getTime();
+            double elapsed = currentTime - previousTime;
             previousTime = currentTime;
-            lag += timestep;
+
+            lag += elapsed;
 
             while (lag >= application_constants::kMsPerUpdate)
             {
-                update(timestep);
+                update(Timestep(elapsed / 1000.0f));
                 lag -= application_constants::kMsPerUpdate;
             }
 
