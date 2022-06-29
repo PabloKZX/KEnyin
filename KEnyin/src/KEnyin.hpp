@@ -15,7 +15,7 @@
 
 #include "KEnyin/SceneManagement/Scene.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
-#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/SceneManagement/ScriptableEntity.hpp"
 
 // ---Renderer------------------------

@@ -1,7 +1,7 @@
 #include "pch.hpp"
 #include "KEnyin/Rendering/Primitives.hpp"
 #include "KEnyin/Rendering/Renderer.hpp"
-#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
 #include "KEnyin/SceneManagement/ScriptableEntity.hpp"
@@ -39,6 +39,13 @@ namespace KEnyin
 
     void Scene::renderScene()
     {
+        if (!_mainCamera)
+        {
+            KEError_Engine("No camera found!");
+            return;
+        }
+
+        Renderer::BeginScene(_mainCamera->camera.get());
         auto view = _registry.view<Components::Transform, Components::MeshRenderer>();
 
         for (auto entity : view)
@@ -47,6 +54,8 @@ namespace KEnyin
 
             Renderer::DrawMesh(transform.getTransformationMatrix(), mesh);
         }
+
+        Renderer::EndScene();
     }
 
     void Scene::loadAsSampleScene()
@@ -76,6 +85,10 @@ namespace KEnyin
         material->shader->bind();
         material->shader->setInt("uTexture1", 0);
         material->shader->setInt("uTexture2", 1);
+
+        Entity camera = createEntity("Camera");
+        camera.getTransform().position = { 0, 0, 3 };
+        camera.AddComponent<Components::CameraComponent>();
 
         class Rotator : public ScriptableEntity
         {
@@ -108,9 +121,41 @@ namespace KEnyin
             meshRenderer.mesh = mesh;
             meshRenderer.material = material;
 
-            cube.AddComponent<Components::NativeScript>().bind<Rotator>();
+            cube.AddScript<Rotator>();
+        }
+    }
+
+    template<>
+    void Scene::onComponentAdded<Components::CameraComponent>(Entity entity, Components::CameraComponent& component)
+    {
+        if (!component.camera)
+        {
+            component.camera = std::make_unique<Camera>(entity.getTransform());
         }
 
+        if (!_mainCamera)
+        {
+            _mainCamera = std::make_shared<Components::CameraComponent>(component);
+        }
+    }    
+    
+    template<>
+    void Scene::onComponentAdded<Components::Transform>(Entity entity, Components::Transform& component)
+    {
+    }
 
+    template<>
+    void Scene::onComponentAdded<Components::MeshRenderer>(Entity entity, Components::MeshRenderer& component)
+    {
+    }
+
+    template<>
+    void Scene::onComponentAdded<Components::NativeScript>(Entity entity, Components::NativeScript& component)
+    {
+    }
+
+    template<>
+    void Scene::onComponentAdded<Components::Tag>(Entity entity, Components::Tag& component)
+    {
     }
 }

@@ -9,7 +9,7 @@
 
 #include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
-#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
 
 namespace KEnyin
@@ -91,9 +91,7 @@ namespace KEnyin
     {
         using namespace application_constants;
 
-        Renderer::BeginScene();
         _activeScene->renderScene();
-        Renderer::EndScene();
 
         ServiceLocator::get().getEditor().update();
         _window->onUpdate();

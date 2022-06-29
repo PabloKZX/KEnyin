@@ -1,7 +1,7 @@
 #pragma once
 
 #include "KEnyin/SceneManagement/Scene.hpp"
-#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
 #include <entt.hpp>
 
 namespace KEnyin
@@ -18,6 +18,7 @@ namespace KEnyin
         {
             KECheck_Engine(!HasComponent<T>(), "Entity already has component!");
             T& component = _scene->_registry.emplace<T>(_entityHandle, std::forward<Args>(args)...);
+            _scene->onComponentAdded<T>(*this, component);
             return component;
         }
 
@@ -39,6 +40,12 @@ namespace KEnyin
         {s
             KECheck_Engine(HasComponent<T>(), "Trying to remove unexisting component!");
             _scene->_registry.remove<T>(_entityHandle);
+        }
+
+        template<typename T>
+        void AddScript()
+        {
+            AddComponent<Components::NativeScript>().bind<T>();
         }
 
         inline Components::Transform& getTransform() { return GetComponent<Components::Transform>(); }

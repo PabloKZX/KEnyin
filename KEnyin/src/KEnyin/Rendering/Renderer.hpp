@@ -1,6 +1,7 @@
 #pragma once
 
-#include "KEnyin/SceneManagement/Components.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
+#include "KEnyin/Rendering/Camera.hpp"
 #include <glm/glm.hpp>
 
 namespace KEnyin
@@ -11,15 +12,17 @@ namespace KEnyin
         static void Init();
         static void Shutdown();
 
-        static void BeginScene();
+        static void BeginScene(Camera* camera);
         static void EndScene();
 
         static void DrawMesh(const glm::mat4& transform, const Components::MeshRenderer& meshComponent);
 
-    //private:
-    //    unsigned int _vao;
-    //    unsigned int _vbo;
-    //    std::shared_ptr<Material> _material;
-    //    std::shared_ptr<Mesh> _mesh;
+    private:
+        struct SceneData
+        {
+            glm::mat4 viewProjectionMatrix;
+        };
+
+        static std::unique_ptr<SceneData> _sceneData;
     };
 }

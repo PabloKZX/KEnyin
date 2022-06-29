@@ -1,6 +1,8 @@
 #pragma once
 
 #include "KEnyin/Core/Timestep.hpp"
+#include "KEnyin/SceneManagement/Components/Components.hpp"
+#include "KEnyin/Rendering/Camera.hpp"
 #include <entt.hpp>
 
 namespace KEnyin
@@ -23,6 +25,8 @@ namespace KEnyin
         void onComponentAdded(Entity entity, T& component);
 
         entt::registry _registry;
+        std::shared_ptr<Components::CameraComponent> _mainCamera;
+
         friend class Entity;
     };
 }

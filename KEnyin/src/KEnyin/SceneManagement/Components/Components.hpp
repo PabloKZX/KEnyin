@@ -3,6 +3,7 @@
 #include "KEnyin/Core/Timestep.hpp"
 #include "KEnyin/Rendering/Mesh.hpp"
 #include "KEnyin/Rendering/Material.hpp"
+#include "KEnyin/Rendering/Camera.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
@@ -38,9 +39,39 @@ namespace KEnyin
                 return glm::translate(glm::mat4(1.0f), position) * glm::toMat4(glm::quat(rotation)) * glm::scale(glm::mat4(1.0f), scale);
             }
 
+            glm::vec3 getForward() const
+            {
+                return glm::rotate(getOrientation(), glm::vec3(0.0f, 0.0f, -1.0f));
+            }
+
+            glm::vec3 getRight() const
+            {
+                return glm::rotate(getOrientation(), glm::vec3(1.0f, 0.0f, 0.0f));
+            }
+
+            glm::vec3 getUp() const
+            {
+                return glm::rotate(getOrientation(), glm::vec3(0.0f, 1.0f, 0.0f));
+            }
+
             glm::vec3 position = { 0.0f, 0.0f, 0.0f };
             glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
             glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
+
+        private:
+            glm::quat getOrientation() const
+            {
+                return glm::quat(glm::vec3(-rotation.x, -rotation.y, 0.0f));
+            }
+        };
+
+        struct CameraComponent
+        {
+            float value = 0.0f;
+            std::shared_ptr<Camera> camera;
+
+            CameraComponent() = default;
+            CameraComponent(const CameraComponent&) = default;
         };
 
         struct MeshRenderer
