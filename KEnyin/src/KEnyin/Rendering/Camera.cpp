@@ -9,17 +9,17 @@ namespace KEnyin
     {
     }
 
-    const glm::mat4& Camera::getViewProjectionMatrix() const
+    const glm::mat4 Camera::getViewProjectionMatrix() const
     {
         return getProjectionMatrix() * getViewMatrix();
     }
 
-    const glm::mat4& Camera::getProjectionMatrix() const
+    const glm::mat4 Camera::getProjectionMatrix() const
     {
         return glm::perspective(_perspectiveFOV, 1280.0f / 720.0f, 0.1f, 100.0f);
     }
 
-    const glm::mat4& Camera::getViewMatrix() const
+    const glm::mat4 Camera::getViewMatrix() const
     {
         return glm::lookAt(_transform.position, _transform.position + _transform.getForward(), _transform.getUp());
     }

@@ -37,7 +37,7 @@ namespace KEnyin
 
         template<typename T>
         void RemoveComponent()
-        {s
+        {
             KECheck_Engine(HasComponent<T>(), "Trying to remove unexisting component!");
             _scene->_registry.remove<T>(_entityHandle);
         }

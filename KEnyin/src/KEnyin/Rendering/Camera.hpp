@@ -19,9 +19,9 @@ namespace KEnyin
         Camera(const Components::Transform& transform);
         Camera(const Camera&) = default;
 
-        const glm::mat4& getViewProjectionMatrix() const;
-        const glm::mat4& getProjectionMatrix() const;
-        const glm::mat4& getViewMatrix() const;
+        const glm::mat4 getViewProjectionMatrix() const;
+        const glm::mat4 getProjectionMatrix() const;
+        const glm::mat4 getViewMatrix() const;
 
     private:
         const Components::Transform& _transform;
