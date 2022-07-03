@@ -3,6 +3,7 @@
 #include "KEnyin/Core/ApplicationLayerStack.hpp"
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
+#include "KEnyin/ImGui/ImGuiLayer.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
 
 namespace KEnyin
@@ -30,6 +31,7 @@ namespace KEnyin
         void render();
 
         std::unique_ptr<Window> _window;
+        std::unique_ptr<ImGuiLayer> _imGuiLayer;
         bool _running = true;
         ApplicationLayerStack _applicationLayerStack;
     };

@@ -33,16 +33,14 @@ namespace KEnyin
     {
         friend class EventDispatcher;
     public:
+        bool handled = true;
+        
         virtual EventType getEventType() const = 0;
         virtual const char* getName() const = 0;
         virtual int getEventCategoryFlags() const = 0;
         virtual std::string toString() const { return getName(); }
 
         inline bool isInCategory(EventCategory category) { return getEventCategoryFlags() & category; }
-        inline bool isHandled() const { return _handled; }
-
-    private:
-        bool _handled = false;
     };
 
     class EventDispatcher
@@ -61,7 +59,7 @@ namespace KEnyin
         {
             if (_event.getEventType() == T::getStaticType())
             {
-                _event._handled = func(*(T*)&_event);
+                _event.handled = func(*(T*)&_event);
                 return true;
             }
             return false;

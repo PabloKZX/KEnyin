@@ -39,7 +39,7 @@ namespace KEnyin
         }
 
         EVENT_CLASS_TYPE(WindowResize)
-            EVENT_CLASS_CATEGORY(EventCategoryApplication)
+        EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
     private:
         unsigned int _width;

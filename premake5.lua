@@ -257,6 +257,7 @@ project "KEditor"
         "%{wks.location}/KEnyin/vendor/spdlog/include",
         "%{includeDirs.glm}",
         "%{includeDirs.entt}",
+        "%{includeDirs.ImGui}",
     }
 
     filter "action:xcode4"

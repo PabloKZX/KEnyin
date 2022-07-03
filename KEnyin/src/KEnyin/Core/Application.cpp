@@ -2,7 +2,6 @@
 #include "KEnyin/Core/Application.hpp"
 #include "KEnyin/Core/Timestep.hpp"
 #include "KEnyin/Core/Window.hpp"
-#include "KEnyin/Editor/Editor.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
@@ -32,7 +31,10 @@ namespace KEnyin
         _window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 
         ServiceLocator::get().loadServices(this);
-
+        
+        _imGuiLayer = std::make_unique<ImGuiLayer>();
+        pushOverlay(_imGuiLayer.get());
+        
         Renderer::Init();
     }
     
@@ -71,7 +73,7 @@ namespace KEnyin
         
         for (auto it = _applicationLayerStack.rbegin(); it != _applicationLayerStack.rend(); ++it)
         {
-            if (event.isHandled())
+            if (event.handled)
             {
                 break;
             }
@@ -97,21 +99,18 @@ namespace KEnyin
 
     void Application::render()
     {
-        //_imGuiLayer->begin();
         for (ApplicationLayer* layer : _applicationLayerStack)
         {
             layer->onRender();
         }
-        //_imGuiLayer->end();
-        
-        //_imGuiLayer->begin();
+
+        _imGuiLayer->begin();
         for (ApplicationLayer* layer : _applicationLayerStack)
         {
             layer->onImGuiRender();
         }
-        //_imGuiLayer->end();
+        _imGuiLayer->end();
 
-        ServiceLocator::get().getEditor().update();
         _window->onUpdate();
     }
 
