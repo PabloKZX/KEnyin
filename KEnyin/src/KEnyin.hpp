@@ -4,8 +4,8 @@
 
 #include "KEnyin/Core/Assert.hpp"
 #include "KEnyin/Core/Application.hpp"
-#include "KEnyin/Core/EntryPoint.hpp"
 #include "KEnyin/Core/Log.hpp"
+#include "KEnyin/Core/ApplicationLayerStack.hpp"
 
 #include "KEnyin/Core/Timestep.hpp"
 

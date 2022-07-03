@@ -2,6 +2,7 @@
 #include "KEnyin/Core/ServiceLocator.hpp"
 #include "KEnyin/Editor/Editor.hpp"
 #include "KEnyin/SceneManagement/SceneManager.hpp"
+#include "KEnyin/Rendering/Renderer.hpp"
 
 #define SAFE_DELETE(service) \
     if(service)              \
@@ -33,6 +34,8 @@ namespace KEnyin
     void ServiceLocator::clearServices()
     {
         SAFE_DELETE(_editor);
-        SAFE_DELETE(_editor);
+        SAFE_DELETE(_sceneManager);
+        
+        Renderer::Shutdown();
     }
 }

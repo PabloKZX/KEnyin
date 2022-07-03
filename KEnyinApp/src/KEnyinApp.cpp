@@ -1,9 +1,10 @@
 #include <KEnyin.hpp>
+#include <KEnyin/Core/EntryPoint.hpp>
 
 class KEnyinApp : public KEnyin::Application
 {
 public: 
-    KEnyinApp()
+    KEnyinApp() : Application("KEnyin App")
     {
 
     }

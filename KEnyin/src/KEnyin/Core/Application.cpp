@@ -6,6 +6,7 @@
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Input/KeyCodes.hpp"
+#include "KEnyin/Rendering/Renderer.hpp"
 #include "KEnyin/Utils/PlatformUtils.hpp"
 
 #include "KEnyin/SceneManagement/SceneManager.hpp"
@@ -17,12 +18,12 @@ namespace KEnyin
         constexpr float kMsPerUpdate = 40.0f;
     }
 
-    Application::Application()
+    Application::Application(const std::string& name)
     {
         using namespace application_constants;
         
         WindowProps props;
-        props.title = "KEnyin";
+        props.title = name;
         props.width = kApplicationWidth;
         props.height = kApplicationHeight;
 
@@ -33,9 +34,6 @@ namespace KEnyin
         ServiceLocator::get().loadServices(this);
 
         Renderer::Init();
-
-        _activeScene = std::make_shared<Scene>();
-        _activeScene->loadAsSampleScene();
     }
     
     Application::~Application()
@@ -57,7 +55,8 @@ namespace KEnyin
 
             while (lag >= application_constants::kMsPerUpdate)
             {
-                update(Timestep(elapsed / 1000.0f));
+                update(elapsed / 1000.0f);
+                
                 lag -= application_constants::kMsPerUpdate;
             }
 
@@ -67,10 +66,18 @@ namespace KEnyin
 
     void Application::onEvent(Event& event)
     {
-        //KELog_Engine(event.toString());
-
         EventDispatcher dispatcher(event);
         dispatcher.dispatch<WindowCloseEvent>(std::bind(&Application::onWindowClosed, this, std::placeholders::_1));
+        
+        for (auto it = _applicationLayerStack.rbegin(); it != _applicationLayerStack.rend(); ++it)
+        {
+            if (event.isHandled())
+            {
+                break;
+            }
+            
+            (*it)->onEvent(event);
+        }
     }
 
     bool Application::onWindowClosed(WindowCloseEvent e)
@@ -81,16 +88,42 @@ namespace KEnyin
 
     void Application::update(Timestep timestep)
     {
-        _activeScene->onUpdate(timestep);
+        for (ApplicationLayer* layer : _applicationLayerStack)
+        {
+            layer->onUpdate(timestep);
+        }
+        
     }
 
     void Application::render()
     {
-        using namespace application_constants;
-
-        _activeScene->renderScene();
+        //_imGuiLayer->begin();
+        for (ApplicationLayer* layer : _applicationLayerStack)
+        {
+            layer->onRender();
+        }
+        //_imGuiLayer->end();
+        
+        //_imGuiLayer->begin();
+        for (ApplicationLayer* layer : _applicationLayerStack)
+        {
+            layer->onImGuiRender();
+        }
+        //_imGuiLayer->end();
 
         ServiceLocator::get().getEditor().update();
         _window->onUpdate();
+    }
+
+    void Application::pushLayer(ApplicationLayer* layer)
+    {
+        _applicationLayerStack.pushLayer(layer);
+        layer->onAttach();
+    }
+
+    void Application::pushOverlay(ApplicationLayer* layer)
+    {
+        _applicationLayerStack.pushOverlay(layer);
+        layer->onAttach();
     }
 }

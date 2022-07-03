@@ -1,6 +1,6 @@
 workspace "KEnyin"
     architecture "x64"
-    startproject "KEnyinApp"
+    startproject "KEditor"
 
     configurations
     {
@@ -170,9 +170,91 @@ project "KEnyinApp"
 
     includedirs
     {
-        "KEnyin/src",
-        "KEnyin/vendor",
-        "KEnyin/vendor/spdlog/include",
+        "%{wks.location}/KEnyin/src",
+        "%{wks.location}/KEnyin/vendor",
+        "%{wks.location}/KEnyin/vendor/spdlog/include",
+        "%{includeDirs.glm}",
+        "%{includeDirs.entt}",
+    }
+
+    filter "action:xcode4"
+        sysincludedirs
+        {
+            "${PROJECT_DIR} /../KEnyin/vendor/glm",
+            "${PROJECT_DIR} /../KEnyin/vendor/spdlog/include",
+            "${PROJECT_DIR} /../KEnyin/src"
+        }
+
+    filter {}
+
+    links
+    {
+        "KEnyin"
+    }
+
+    filter "system:windows"
+        staticruntime "On"
+        systemversion "latest"
+
+        defines
+        {
+            "KE_PLATFORM_WINDOWS",
+        }
+
+    filter "system:macosx"
+        staticruntime "On"
+        systemversion "11.3"
+        buildoptions "-std=c++17"
+
+        defines
+        {
+            "HZ_PLATFORM_MACOS"
+        }
+
+        links
+        {
+            "Cocoa.framework",
+            "IOKit.framework",
+            "CoreFoundation.framework"
+        }
+
+    filter "configurations:Debug"
+        defines "KE_DEBUG"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines "KE_RELEASE"
+        runtime "Release"
+        optimize "on"
+
+    filter "configurations:Dist"
+        defines "KE_DIST"
+        runtime "Release"
+        optimize "on"
+        
+project "KEditor"
+    location "KEditor"
+    kind "ConsoleApp"
+    language "C++"
+    staticruntime "off"
+    cppdialect "c++17"
+
+    targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "%{wks.location}/KEnyin/src",
+        "%{wks.location}/KEnyin/vendor",
+        "%{wks.location}/KEnyin/vendor/spdlog/include",
         "%{includeDirs.glm}",
         "%{includeDirs.entt}",
     }

@@ -1,10 +1,9 @@
 #pragma once
 
+#include "KEnyin/Core/ApplicationLayerStack.hpp"
 #include "KEnyin/Core/Window.hpp"
 #include "KEnyin/Events/ApplicationEvent.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
-
-#include "KEnyin/Rendering/Renderer.hpp"
 
 namespace KEnyin
 {
@@ -14,24 +13,25 @@ namespace KEnyin
         static constexpr unsigned int kApplicationWidth = 1280;
         static constexpr unsigned int kApplicationHeight = 720;
 
-        Application();
+        Application(const std::string& name = "KEnyin App");
         virtual ~Application();
 
         void run();
         void onEvent(Event& event);
+        
+        void pushLayer(ApplicationLayer* layer);
+        void pushOverlay(ApplicationLayer* layer);
 
         inline Window& getWindow() const { return *_window; }
-        inline Scene& getActiveScene() const { return *_activeScene; }
 
-        
     private:
         bool onWindowClosed(WindowCloseEvent e);
         void update(Timestep timestep);
         void render();
 
         std::unique_ptr<Window> _window;
-        std::shared_ptr<Scene> _activeScene;
         bool _running = true;
+        ApplicationLayerStack _applicationLayerStack;
     };
 
     //To be defined by KEnyin Applications

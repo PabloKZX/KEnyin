@@ -10,6 +10,9 @@
 #include <glm/glm.hpp>
 #include <glfw/glfw3.h>
 
+#include <iostream>
+#include <filesystem>
+
 namespace KEnyin
 {
     Entity Scene::createEntity(const std::string& name)
@@ -78,11 +81,22 @@ namespace KEnyin
 
         std::shared_ptr<Material> material = std::make_shared<Material>();
         std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(Primitives::CreateCube());
+        
+        std::cout << std::filesystem::current_path() << std::endl;
 
+#ifdef KE_PLATFORM_WINDOWS
         material->shader = std::make_unique<Shader>("assets/Shaders/Sample.kesh");
 
         material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container.jpg"));
         material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/awesomeface.png"));
+#endif
+        
+#ifdef KE_PLATFORM_MACOS
+        material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
+
+        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container.jpg"));
+        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/awesomeface.png"));
+#endif
 
         material->shader->bind();
         material->shader->setInt("uTexture1", 0);
