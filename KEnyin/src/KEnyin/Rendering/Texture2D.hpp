@@ -9,7 +9,7 @@ namespace KEnyin
         Texture2D(const std::string& filePath);
         ~Texture2D();
 
-        void bind(unsigned int textureUnit= 0);
+        void bind(unsigned int textureUnit = 0);
     private:
         unsigned int _textureId;
         unsigned int _width;

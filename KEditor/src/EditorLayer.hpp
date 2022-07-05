@@ -19,5 +19,9 @@ namespace KEnyin
         virtual void onRender() override;
     private:
         std::shared_ptr<Scene> _activeScene;
+        std::shared_ptr<Texture2D> _texture;
+        std::shared_ptr<Framebuffer> _framebuffer;
+        
+        glm::vec2 _viewportSize = {0.0f, 0.0f};
     };
 }
