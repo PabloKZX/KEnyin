@@ -3,6 +3,7 @@
 #include "Panels/Hierarchy.hpp"
 #include "Panels/Inspector.hpp"
 #include "Panels/Console.hpp"
+#include "Panels/Project.hpp"
 #include <KEnyin.hpp>
 
 namespace KEnyin::KEditor
@@ -32,5 +33,6 @@ namespace KEnyin::KEditor
         Panels::Hierarchy _hierarchyPanel;
         Panels::Inspector _inspectorPanel;
         Panels::Console _consolePanel;
+        Panels::Project _projectPanel;
     };
 }

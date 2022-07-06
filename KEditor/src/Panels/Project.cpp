@@ -1,11 +1,11 @@
-#include "Console.hpp"
+#include "Project.hpp"
 #include "imgui/imgui.h"
 
 namespace KEnyin::KEditor::Panels
 {
-    void Console::onImGuiRender()
+    void Project::onImGuiRender()
     {
-        ImGui::Begin("Console");
+        ImGui::Begin("Project");
         ImGui::End();
     }
 }

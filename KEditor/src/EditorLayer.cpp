@@ -1,7 +1,7 @@
 #include "EditorLayer.hpp"
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_internal.h>
+#include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
 
 namespace KEnyin::KEditor
 {
@@ -110,7 +110,7 @@ namespace KEnyin::KEditor
             }
         };
 
-        Entity camera = _activeScene->createEntity("Camera");
+        Entity camera = _activeScene->createEntity("Main Camera");
         camera.getTransform().position = { 0, 0, 3 };
         Components::CameraComponent& cameraComponent = camera.AddComponent<Components::CameraComponent>();
         _mainCamera = cameraComponent.camera;
@@ -191,6 +191,7 @@ namespace KEnyin::KEditor
         _hierarchyPanel.onImGuiRender();
         _inspectorPanel.onImGuiRender();
         _consolePanel.onImGuiRender();
+        _projectPanel.onImGuiRender();
 
         // Windows
         static bool showDemoWindow = false;
