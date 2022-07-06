@@ -23,5 +23,6 @@
 #include "KEnyin/Rendering/Shader.hpp"
 #include "KEnyin/Rendering/Texture2D.hpp"
 #include "KEnyin/Rendering/Framebuffer.hpp"
+#include "KEnyin/Rendering/Primitives.hpp"
 // -----------------------------------
 

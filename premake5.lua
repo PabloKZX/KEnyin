@@ -208,7 +208,7 @@ project "KEnyinApp"
 
         defines
         {
-            "HZ_PLATFORM_MACOS"
+            "KE_PLATFORM_MACOS"
         }
 
         links
@@ -291,7 +291,7 @@ project "KEditor"
 
         defines
         {
-            "HZ_PLATFORM_MACOS"
+            "KE_PLATFORM_MACOS"
         }
 
         links

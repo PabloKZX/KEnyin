@@ -19,7 +19,6 @@ namespace KEnyin
 
         void renderScene();
         void onUpdate(Timestep timestep);
-        void loadAsSampleScene();
     private:
         template<typename T>
         void onComponentAdded(Entity entity, T& component);

@@ -10,9 +10,6 @@
 #include <glm/glm.hpp>
 #include <glfw/glfw3.h>
 
-#include <iostream>
-#include <filesystem>
-
 namespace KEnyin
 {
     Entity Scene::createEntity(const std::string& name)
@@ -61,117 +58,6 @@ namespace KEnyin
         }
 
         Renderer::EndScene();
-    }
-
-    void Scene::loadAsSampleScene()
-    {
-        glm::vec3 cubePositions[] =
-        {
-            glm::vec3(0.0f,  0.0f,  0.0f),
-            glm::vec3(2.0f,  5.0f, -15.0f),
-            glm::vec3(-1.5f, -2.2f, -2.5f),
-            glm::vec3(-3.8f, -2.0f, -12.3f),
-            glm::vec3(2.4f, -0.4f, -3.5f),
-            glm::vec3(-1.7f,  3.0f, -7.5f),
-            glm::vec3(1.3f, -2.0f, -2.5f),
-            glm::vec3(1.5f,  2.0f, -2.5f),
-            glm::vec3(1.5f,  0.2f, -1.5f),
-            glm::vec3(-1.3f,  1.0f, -1.5f)
-        };
-
-        std::shared_ptr<Material> material = std::make_shared<Material>();
-        std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(Primitives::CreateCube());
-        
-        std::cout << std::filesystem::current_path() << std::endl;
-
-#ifdef KE_PLATFORM_WINDOWS
-        material->shader = std::make_unique<Shader>("assets/Shaders/Sample.kesh");
-
-        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/awesomeface.png"));
-#endif
-        
-#ifdef KE_PLATFORM_MACOS
-        material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
-
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/awesomeface.png"));
-#endif
-
-        material->shader->bind();
-        material->shader->setInt("uTexture1", 0);
-        material->shader->setInt("uTexture2", 1);
-
-        class CameraController : public ScriptableEntity
-        {
-        public:
-            float radius = 10;
-
-            void onCreate()
-            {
-
-            }
-
-            void onUpdate(Timestep ts)
-            {
-                auto& position = GetComponent<Components::Transform>().position;
-
-                float speed = 5.0f;
-
-                if (Input::getKeyDown(Key::A))
-                    position.x -= speed * ts;
-                if (Input::getKeyDown(Key::D))
-                    position.x += speed * ts;
-                if (Input::getKeyDown(Key::W))
-                    position.y += speed * ts;
-                if (Input::getKeyDown(Key::S))
-                    position.y -= speed * ts;
-            }
-
-            void onDestroy()
-            {
-
-            }
-        };
-
-        class Rotator : public ScriptableEntity
-        {
-        public:
-            void onCreate()
-            {
-
-            }
-
-            void onUpdate(Timestep ts)
-            {
-                auto& transform = GetComponent<Components::Transform>();
-                transform.rotation.y += 0.05f;
-            }
-
-            void onDestroy()
-            {
-
-            }
-        };
-
-        Entity camera = createEntity("Camera");
-        camera.getTransform().position = { 0, 0, 3 };
-        camera.AddComponent<Components::CameraComponent>();
-        camera.AddScript<CameraController>();
-
-        int index = 0;
-        for (const auto& position : cubePositions)
-        {
-            Entity cube = createEntity("Cube" + std::to_string(index++));
-
-            cube.getTransform().position = position;
-
-            Components::MeshRenderer& meshRenderer = cube.AddComponent<Components::MeshRenderer>();
-            meshRenderer.mesh = mesh;
-            meshRenderer.material = material;
-
-            cube.AddScript<Rotator>();
-        }
     }
 
     template<>
