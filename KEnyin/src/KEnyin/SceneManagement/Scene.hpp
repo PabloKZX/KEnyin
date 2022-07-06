@@ -9,6 +9,11 @@ namespace KEnyin
 {
     class Entity;
 
+    namespace KEditor::Panels
+    {
+        class Hierarchy;
+    }
+
     class Scene
     {
     public:
@@ -27,6 +32,7 @@ namespace KEnyin
         std::shared_ptr<Components::CameraComponent> _mainCamera;
 
         friend class Entity;
+        friend class KEditor::Panels::Hierarchy;
     };
 }
  

@@ -1,7 +1,7 @@
 #include "EditorLayer.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
+#include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 
 namespace KEnyin::KEditor
 {
@@ -189,6 +189,8 @@ namespace KEnyin::KEditor
 
         // Panels
         _hierarchyPanel.onImGuiRender();
+        _inspectorPanel.onImGuiRender();
+        _consolePanel.onImGuiRender();
 
         // Windows
         static bool showDemoWindow = false;

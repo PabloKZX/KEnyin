@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Panels/Hierarchy.hpp"
+#include "Panels/Inspector.hpp"
+#include "Panels/Console.hpp"
 #include <KEnyin.hpp>
 
 namespace KEnyin::KEditor
@@ -28,5 +30,7 @@ namespace KEnyin::KEditor
 
         // Panels
         Panels::Hierarchy _hierarchyPanel;
+        Panels::Inspector _inspectorPanel;
+        Panels::Console _consolePanel;
     };
 }

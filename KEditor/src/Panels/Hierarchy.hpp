@@ -14,6 +14,8 @@ namespace KEnyin::KEditor
             void setContext(const std::shared_ptr<Scene>& context);
             void onImGuiRender();
         private:
+            void drawEntity(Entity entity);
+
             std::shared_ptr<Scene> _context;
         };
     }
