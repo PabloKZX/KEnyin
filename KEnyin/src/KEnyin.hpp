@@ -24,5 +24,7 @@
 #include "KEnyin/Rendering/Texture2D.hpp"
 #include "KEnyin/Rendering/Framebuffer.hpp"
 #include "KEnyin/Rendering/Primitives.hpp"
+#include "KEnyin/Rendering/Camera.hpp"
+#include "KEnyin/Rendering/Color.hpp"
 // -----------------------------------
 

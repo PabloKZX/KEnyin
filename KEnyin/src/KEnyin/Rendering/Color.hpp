@@ -1,19 +1,24 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 namespace KEnyin
 {
-    class Color
+    struct Color
     {
-    public:
-        Color() {};
-        Color(float r, float g, float b);
-        Color(float r, float g, float b, float a);
-        ~Color() {};
+        float r = 0.0f;
+        float g = 0.0f;
+        float b = 0.0f;
+        float a = 1.0f;
 
-    private:
-        float _r = 0.0f;
-        float _g = 0.0f;
-        float _b = 0.0f;
-        float _a = 1.0f;
+        Color() = default;
+        Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) {};
+        Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}; ;
+        Color(const glm::vec4& color) : r(color.r), g(color.g), b(color.b), a(color.a) {}; ;
+        Color(const glm::vec3& color) : r(color.r), g(color.g), b(color.b), a(1.0f) {}; ;
+        ~Color() = default;
+
+        operator glm::vec3() { return { r, g, b }; };
+        operator glm::vec4() { return { r, g, b, a }; };
     };
 }

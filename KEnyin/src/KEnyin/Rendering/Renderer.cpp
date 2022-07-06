@@ -18,6 +18,7 @@ namespace KEnyin
 
     void Renderer::Init() 
     {
+
     }
 
     void Renderer::Shutdown()
@@ -27,9 +28,7 @@ namespace KEnyin
 
     void Renderer::BeginScene(Camera* camera)
     {
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        Clear();
         _sceneData->viewProjectionMatrix = camera->getViewProjectionMatrix();
     }
 
@@ -55,5 +54,15 @@ namespace KEnyin
 
         mesh.bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+
+    void Renderer::SetClearColor(Color color)
+    {
+        glClearColor(color.r, color.g, color.b, color.a);
+    }
+
+    void Renderer::Clear()
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 }

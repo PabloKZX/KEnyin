@@ -31,7 +31,7 @@ namespace KEnyin
         void render();
 
         std::unique_ptr<Window> _window;
-        std::unique_ptr<ImGuiLayer> _imGuiLayer;
+        ImGuiLayer* _imGuiLayer;
         bool _running = true;
         ApplicationLayerStack _applicationLayerStack;
     };

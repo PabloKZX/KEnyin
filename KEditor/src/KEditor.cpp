@@ -5,22 +5,25 @@
 
 namespace KEnyin
 {
-    class KEditor : public Application
+    namespace KEditor
     {
-    public:
-        KEditor() : Application("KEditor App")
+        class KEditor : public Application
         {
-            pushLayer(new EditorLayer());
-        }
+        public:
+            KEditor() : Application("KEditor App")
+            {
+                pushLayer(new EditorLayer());
+            }
 
-        ~KEditor()
-        {
+            ~KEditor()
+            {
 
-        }
-    };
+            }
+        };
+    }
 
     Application* CreateApplication()
     {
-        return new KEditor();
+        return new KEditor::KEditor();
     }
 }

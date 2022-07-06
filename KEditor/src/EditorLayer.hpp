@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Panels/Hierarchy.hpp"
 #include <KEnyin.hpp>
 
-namespace KEnyin
+namespace KEnyin::KEditor
 {
     class EditorLayer : public ApplicationLayer
     {
@@ -21,7 +22,11 @@ namespace KEnyin
         std::shared_ptr<Scene> _activeScene;
         std::shared_ptr<Texture2D> _texture;
         std::shared_ptr<Framebuffer> _framebuffer;
-        
+        std::shared_ptr<Camera> _mainCamera;
+
         glm::vec2 _viewportSize = {0.0f, 0.0f};
+
+        // Panels
+        Panels::Hierarchy _hierarchyPanel;
     };
 }

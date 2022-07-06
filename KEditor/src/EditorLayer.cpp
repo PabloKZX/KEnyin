@@ -1,8 +1,9 @@
 #include "EditorLayer.hpp"
 
 #include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
 
-namespace KEnyin
+namespace KEnyin::KEditor
 {
     EditorLayer::EditorLayer()
         : ApplicationLayer("EditorLayer")
@@ -11,16 +12,17 @@ namespace KEnyin
 
     void EditorLayer::onAttach()
     {
+        Renderer::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
         _activeScene = std::make_shared<Scene>();
-        
-        FramebufferData data =
-        {
-            .width = 1280,
-            .height = 720,
-            .samples = 1,
-        };
-        _framebuffer = std::make_shared<Framebuffer>(data);
-        
+        _hierarchyPanel.setContext(_activeScene);
+
+        FramebufferData data;
+        data.width = 1280,
+            data.height = 720,
+            data.samples = 1,
+
+            _framebuffer = std::make_shared<Framebuffer>(data);
+
         glm::vec3 cubePositions[] =
         {
             glm::vec3(0.0f,  0.0f,  0.0f),
@@ -44,7 +46,7 @@ namespace KEnyin
         material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container.jpg"));
         material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/awesomeface.png"));
 #endif
-        
+
 #ifdef KE_PLATFORM_MACOS
         material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
 
@@ -110,7 +112,8 @@ namespace KEnyin
 
         Entity camera = _activeScene->createEntity("Camera");
         camera.getTransform().position = { 0, 0, 3 };
-        camera.AddComponent<Components::CameraComponent>();
+        Components::CameraComponent& cameraComponent = camera.AddComponent<Components::CameraComponent>();
+        _mainCamera = cameraComponent.camera;
         camera.AddScript<CameraController>();
 
         int index = 0;
@@ -130,7 +133,7 @@ namespace KEnyin
 
     void EditorLayer::onDetach()
     {
-        
+
     }
 
     void EditorLayer::onUpdate(Timestep ts)
@@ -183,65 +186,48 @@ namespace KEnyin
             ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
         }
-        
-        
+
+        // Panels
+        _hierarchyPanel.onImGuiRender();
+
         // Windows
         static bool showDemoWindow = false;
-        static bool showAnotherWindow = false;
 
-        if(showDemoWindow)
-            ImGui::ShowDemoWindow(&showDemoWindow);
-
+        if (ImGui::BeginMenuBar())
         {
-            static float f = 0.0f;
-            static int counter = 0;
-            static float* clearColor = 0;
-
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &showDemoWindow);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &showAnotherWindow);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clearColor); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-        
-        // 3. Show another simple window.
-        if (showAnotherWindow)
-        {
-            ImGui::Begin("Another Window", &showAnotherWindow);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                showAnotherWindow = false;
-            ImGui::End();
-        }
-        
-        // Viewport
-        {
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
-            ImGui::Begin("Viewport");
-            ImVec2 viewPortPanelSize = ImGui::GetContentRegionAvail();
-            if(_viewportSize != glm::vec2(viewPortPanelSize.x, viewPortPanelSize.y))
+            if (ImGui::BeginMenu("Panels"))
             {
-                //_framebuffer->resize((unsigned int)viewPortPanelSize.x, (unsigned int)viewPortPanelSize.y);
-                _viewportSize = {viewPortPanelSize.x, viewPortPanelSize.y};
+                if (ImGui::MenuItem("Demo Window"))
+                    showDemoWindow = true;
+
+                ImGui::EndMenu();
             }
-            unsigned int textureID = _framebuffer->getColorBufferId();
-            ImGui::Image((void*)textureID, ImVec2{_viewportSize.x, _viewportSize.y}, ImVec2{0, 1}, ImVec2{1, 0});
+            ImGui::EndMenuBar();
+
+            if (showDemoWindow)
+            {
+                ImGui::ShowDemoWindow(&showDemoWindow);
+            }
+
+            // Viewport
+            {
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+                ImGui::Begin("Viewport");
+                ImVec2 viewPortPanelSize = ImGui::GetContentRegionAvail();
+                if (_viewportSize != glm::vec2(viewPortPanelSize.x, viewPortPanelSize.y))
+                {
+                    //_framebuffer->resize((unsigned int)viewPortPanelSize.x, (unsigned int)viewPortPanelSize.y);
+                    _viewportSize = { viewPortPanelSize.x, viewPortPanelSize.y };
+                    _mainCamera->resize(viewPortPanelSize.x, viewPortPanelSize.y);
+                }
+                unsigned int textureID = _framebuffer->getColorBufferId();
+                ImGui::Image((void*)textureID, ImVec2{ _viewportSize.x, _viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+                ImGui::End();
+                ImGui::PopStyleVar();
+            }
+
             ImGui::End();
-            ImGui::PopStyleVar();
         }
-        
-        ImGui::End();
     }
 
     void EditorLayer::onEvent(Event& event)

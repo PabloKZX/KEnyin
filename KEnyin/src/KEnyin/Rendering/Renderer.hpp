@@ -2,6 +2,7 @@
 
 #include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/Rendering/Camera.hpp"
+#include "KEnyin/Rendering/Color.hpp"
 #include <glm/glm.hpp>
 
 namespace KEnyin
@@ -16,6 +17,8 @@ namespace KEnyin
         static void EndScene();
 
         static void DrawMesh(const glm::mat4& transform, const Components::MeshRenderer& meshComponent);
+        static void SetClearColor(Color color);
+        static void Clear();
 
     private:
         struct SceneData

@@ -32,8 +32,8 @@ namespace KEnyin
 
         ServiceLocator::get().loadServices(this);
         
-        _imGuiLayer = std::make_unique<ImGuiLayer>();
-        pushOverlay(_imGuiLayer.get());
+        _imGuiLayer = new ImGuiLayer();;
+        pushOverlay(_imGuiLayer);
         
         Renderer::Init();
     }
