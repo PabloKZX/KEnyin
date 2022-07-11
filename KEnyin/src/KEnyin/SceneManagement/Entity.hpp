@@ -48,6 +48,20 @@ namespace KEnyin
             AddComponent<Components::NativeScript>().bind<T>();
         }
 
+        operator uint32_t() const { return static_cast<uint32_t>(_entityHandle); }
+        operator entt::entity() const { return _entityHandle; }
+        operator bool() const { return _entityHandle != entt::null; }
+
+        bool operator == (const Entity& other) const
+        {
+            return _entityHandle == other._entityHandle && _scene == other._scene;
+        }
+
+        bool operator != (const Entity& other) const
+        {
+            return !(*this == other);
+        }
+
         inline Components::Transform& getTransform() { return GetComponent<Components::Transform>(); }
     private:
         entt::entity _entityHandle = entt::null;

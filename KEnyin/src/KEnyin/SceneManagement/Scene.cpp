@@ -20,6 +20,11 @@ namespace KEnyin
         return entity;
     }
 
+    void Scene::destroyEntity(Entity entity)
+    {
+        _registry.destroy(entity);
+    }
+
     void Scene::onUpdate(Timestep timestep)
     {
         // Update scripts

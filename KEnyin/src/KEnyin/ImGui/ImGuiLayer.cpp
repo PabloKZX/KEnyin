@@ -27,10 +27,16 @@ namespace KEnyin
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
         //io.ConfigViewportsNoAutoMerge = true;
         //io.ConfigViewportsNoTaskBarIcon = true;
+        
+        //TODO: Local Paths
+        io.Fonts->AddFontFromFileTTF("/Users/pablo.martinez/dev/KEnyin/KEditor/assets/Fonts/Arial/ARIALBD.TTF", 14.0f);
+        io.FontDefault = io.Fonts->AddFontFromFileTTF("/Users/pablo.martinez/dev/KEnyin/KEditor/assets/Fonts/Arial/ARIAL.TTF", 14.0f);
 
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         //ImGui::StyleColorsClassic();
+        
+        setDarkThemeColors();
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
         ImGuiStyle& style = ImGui::GetStyle();
@@ -88,5 +94,51 @@ namespace KEnyin
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+    }
+
+    void ImGuiLayer::setDarkThemeColors()
+    {
+        auto& colors = ImGui::GetStyle().Colors;
+        colors[ImGuiCol_WindowBg] = ImVec4{ 0.2196f, 0.2196f, 0.2196f, 1.0f };
+        
+        // Headers
+        colors[ImGuiCol_Header] = ImVec4{ 0.1960f, 0.1960f, 0.1960f, 1.0f };
+        colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3019f, 0.3019f, 0.3019f, 1.0f };
+        colors[ImGuiCol_HeaderActive] = ImVec4{ 0.1686f, 0.3647f, 0.5254f, 1.0f };
+        
+        // Buttons
+        colors[ImGuiCol_Button] = ImVec4{ 0.3450f, 0.3450f, 0.3450f, 1.0f };
+        colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.4039f, 0.4039f, 0.4039f, 1.0f };
+        colors[ImGuiCol_ButtonActive] = ImVec4{ 0.2705f, 0.3686f, 0.4784f, 1.0f };
+        
+        // Frame BG
+        // Background of checkbox, radio button, plot, slider, text input
+        colors[ImGuiCol_FrameBg] = ImVec4{ 0.1647f, 0.1647f, 0.1647f, 1.0f };
+        colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.3176f, 0.3176f, 0.3176f, 1.0f };
+        colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.1803f, 0.3803f, 0.5882f, 1.0f };
+        
+        // Tabs
+        colors[ImGuiCol_Tab] = ImVec4{ 0.1882f, 0.1882f, 0.1882f, 1.0f };
+        colors[ImGuiCol_TabHovered] = ImVec4{ 0.1882f, 0.1882f, 0.1882f, 1.0f  };
+        colors[ImGuiCol_TabActive] = ImVec4{ 0.28f, 0.2805f, 0.281f, 1.0f };
+        colors[ImGuiCol_TabUnfocused] = ImVec4{ 0.1882f, 0.1882f, 0.1882f, 1.0f  };
+        colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.1882f, 0.1882f, 0.1882f, 1.0f  };
+        
+        // Title
+        colors[ImGuiCol_TitleBg] = ImVec4{ 0.1254f, 0.1254f, 0.1254f, 1.0f };
+        colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.1254f, 0.1254f, 0.1254f, 1.0f };
+        colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.1254f, 0.1254f, 0.1254f, 1.0f };
+        
+        // Separators
+        colors[ImGuiCol_Separator] = ImVec4{ 0.0784f, 0.0784f, 0.0784f, 1.0f };
+        colors[ImGuiCol_SeparatorHovered] = ImVec4{ 0.0784f, 0.0784f, 0.0784f, 1.0f };
+        colors[ImGuiCol_SeparatorActive] = ImVec4{ 0.0784f, 0.0784f, 0.0784f, 1.0f };
+        
+        // Docking
+        // Preview overlay color when about to docking something
+        colors[ImGuiCol_DockingPreview] = ImVec4{ 0.2196f, 0.2196f, 0.2196f, 1.0f };
+        // Background color for empty node (e.g. CentralNode with no window docked into it)
+        colors[ImGuiCol_DockingEmptyBg] = ImVec4{ 0.2196f, 0.2196f, 0.2196f, 1.0f };
+
     }
 }

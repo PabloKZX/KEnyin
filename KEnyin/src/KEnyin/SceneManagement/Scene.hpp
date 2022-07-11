@@ -21,6 +21,7 @@ namespace KEnyin
         ~Scene() = default;
 
         Entity createEntity(const std::string& name = "New Entity");
+        void destroyEntity(Entity entity);
 
         void renderScene();
         void onUpdate(Timestep timestep);

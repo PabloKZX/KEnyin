@@ -7,11 +7,13 @@ namespace KEnyin::KEditor::Panels
     {
     public:
         Inspector() = default;
-        Inspector(Entity* entity);
+        Inspector(Entity entity);
 
-        void setContext(Entity* entity);
+        void setContext(Entity entity);
         void onImGuiRender();
     private:
-        Entity* _entity;
+        void drawComponents(Entity entity);
+
+        Entity _entity;
     };
 }

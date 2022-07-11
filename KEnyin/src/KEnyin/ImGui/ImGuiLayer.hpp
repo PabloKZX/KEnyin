@@ -22,6 +22,8 @@ namespace KEnyin
         
         inline void setBlockEvents(bool block) { _blockEvents = block; }
     private:
+        void setDarkThemeColors();
+        
         bool _blockEvents = false;
     };
 }

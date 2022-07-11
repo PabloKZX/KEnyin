@@ -3,8 +3,7 @@
 
 namespace KEnyin::KEditor::Panels
 {
-    void Console::onImGuiRender()
-    {
+    void Console::onImGuiRender() {
         ImGui::Begin("Console");
         ImGui::End();
     }

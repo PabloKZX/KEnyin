@@ -15,6 +15,8 @@ namespace KEnyin::KEditor
         Renderer::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
         _activeScene = std::make_shared<Scene>();
         _hierarchyPanel.setContext(_activeScene);
+        _hierarchyPanel.setOnEntitySelectedChangedCallback([=](Entity entity){_inspectorPanel.setContext(entity);});
+
 
         FramebufferData data;
         data.width = 1280,
@@ -181,11 +183,17 @@ namespace KEnyin::KEditor
         
         // Dockspace
         ImGuiIO& io = ImGui::GetIO();
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImVec2 minWinSize = style.WindowMinSize;
+        style.WindowMinSize.x = 100.0f;
+        style.WindowMinSize.y = 100.0f;
         if(io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
         {
             ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
         }
+        
+        style.WindowMinSize = minWinSize;
 
         // Panels
         _hierarchyPanel.onImGuiRender();
