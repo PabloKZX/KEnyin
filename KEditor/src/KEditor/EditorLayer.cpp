@@ -1,7 +1,7 @@
 #include "EditorLayer.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
+#include <imgui.h>
+#include <imgui_internal.h>
 
 namespace KEnyin::KEditor
 {

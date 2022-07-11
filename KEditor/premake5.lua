@@ -16,6 +16,7 @@ project "KEditor"
 
     includedirs
     {
+        "src",
         "%{wks.location}/KEnyin/src",
         "%{wks.location}/KEnyin/vendor",
         "%{wks.location}/KEnyin/vendor/spdlog/include",
@@ -23,10 +24,17 @@ project "KEditor"
         "%{includeDirs.entt}",
         "%{includeDirs.ImGui}",
     }
+    
+    links
+    {
+        "KEnyin",
+        "ImGui",
+    }
 
     filter "action:xcode4"
         sysincludedirs
         {
+            "src",
             "%{wks.location}/KEnyin/src",
             "%{wks.location}/KEnyin/vendor/glm",
             "%{wks.location}/KEnyin/vendor/spdlog/include",
@@ -35,10 +43,6 @@ project "KEditor"
 
     filter {}
 
-    links
-    {
-        "KEnyin",
-    }
 
     filter "system:windows"
         systemversion "latest"

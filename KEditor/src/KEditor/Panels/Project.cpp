@@ -1,5 +1,5 @@
-#include "Project.hpp"
-#include "imgui/imgui.h"
+#include "KEditor/Panels/Project.hpp"
+#include <imgui.h>
 
 namespace KEnyin::KEditor::Panels
 {

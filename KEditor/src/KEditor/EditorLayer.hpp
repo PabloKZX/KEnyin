@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Panels/Hierarchy.hpp"
-#include "Panels/Inspector.hpp"
-#include "Panels/Console.hpp"
-#include "Panels/Project.hpp"
+#include "KEditor/Panels/Hierarchy.hpp"
+#include "KEditor/Panels/Inspector.hpp"
+#include "KEditor/Panels/Console.hpp"
+#include "KEditor/Panels/Project.hpp"
 #include <KEnyin.hpp>
 
 namespace KEnyin::KEditor

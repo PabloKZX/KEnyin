@@ -1,5 +1,5 @@
-#include "Hierarchy.hpp"
-#include "imgui/imgui.h"
+#include "KEditor/Panels/Hierarchy.hpp"
+#include <imgui.h>
 
 namespace KEnyin::KEditor::Panels
 {
@@ -42,6 +42,7 @@ namespace KEnyin::KEditor::Panels
     {
         ImGuiTreeNodeFlags flags = ((_selectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
         flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
+        flags |= ImGuiTreeNodeFlags_Leaf;
 
         auto& tag = entity.GetComponent<Components::Tag>().tag;
         bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());

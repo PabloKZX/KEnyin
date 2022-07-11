@@ -1,6 +1,6 @@
-#include "Inspector.hpp"
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
+#include "KEditor/Panels/Inspector.hpp"
+#include <imgui.h>
+#include <imgui_internal.h>
 
 namespace KEnyin::KEditor::Panels
 {
@@ -73,6 +73,9 @@ namespace KEnyin::KEditor::Panels
         {
             entity.RemoveComponent<T>();
         }
+        
+        ImGui::NewLine();
+        ImGui::Separator();
     }
 
     static void drawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 50.0f)
@@ -169,8 +172,8 @@ namespace KEnyin::KEditor::Panels
             component.rotation = glm::radians(rotation);
             drawVec3Control("Scale", component.scale, 1.0f);
         });
-
-        if (ImGui::Button("Add Component"))
+        
+        if (ImGui::Button("Add Component", ImVec2(ImGui::GetWindowSize().x, 0.0f)))
         {
             ImGui::OpenPopup("AddComponent");
         }

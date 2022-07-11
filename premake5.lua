@@ -23,7 +23,7 @@ includeDirs["stb_image"] = "%{wks.location}/KEnyin/vendor/stb_image"
 group "Dependencies"
 include "KEnyin/vendor/GLFW"
 include "KEnyin/vendor/glad"
-include "KEnyin/vendor/ImGui"
+include "KEnyin/vendor/imgui"
 group ""
 
 include "KEnyin"
