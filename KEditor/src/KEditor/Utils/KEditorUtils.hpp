@@ -1,13 +1,14 @@
 #pragma once
 
+#include "KEditor/Drawers/Drawer.hpp"
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <KEnyin.hpp>
 
 namespace KEnyin::KEditor::utils
 {
-    template<typename T, typename UIFunction>
-    void drawComponent(const std::string& name, Entity entity, UIFunction uiFunction)
+    template<typename T>
+    void drawComponent(const std::string& name, Entity entity)
     {
         const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
         if(!entity.HasComponent<T>())
@@ -44,7 +45,7 @@ namespace KEnyin::KEditor::utils
 
         if(open)
         {
-            uiFunction(component);
+            Drawer::onImGuiRender<T>(component);
             ImGui::TreePop();
         }
 
