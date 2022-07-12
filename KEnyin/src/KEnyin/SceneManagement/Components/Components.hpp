@@ -4,6 +4,7 @@
 #include "KEnyin/Rendering/Mesh.hpp"
 #include "KEnyin/Rendering/Material.hpp"
 #include "KEnyin/Rendering/Camera.hpp"
+#include "KEnyin/Math/Math.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
@@ -52,6 +53,20 @@ namespace KEnyin
             glm::vec3 getUp() const
             {
                 return glm::rotate(getOrientation(), glm::vec3(0.0f, 1.0f, 0.0f));
+            }
+            
+            glm::vec3 eulerAngles() const
+            {
+                glm::vec3 eulerAngles = glm::degrees(rotation);
+                eulerAngles.x = fmod(eulerAngles.x, 360.0f);
+                eulerAngles.y = fmod(eulerAngles.y, 360.0f);
+                eulerAngles.z = fmod(eulerAngles.z, 360.0f);
+                return eulerAngles;
+            }
+            
+            void setEulerAngles(glm::vec3 eulerAngles)
+            {
+                rotation = glm::radians(eulerAngles);
             }
 
             glm::vec3 position = { 0.0f, 0.0f, 0.0f };

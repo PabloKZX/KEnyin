@@ -43,6 +43,11 @@ namespace KEnyin::KEditor::Panels
         ImGuiTreeNodeFlags flags = ((_selectedEntity == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
         flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
         flags |= ImGuiTreeNodeFlags_Leaf;
+        
+        //TODO: Enable and disable entities
+        static bool enabled = true;
+        ImGui::Checkbox("##enabled", &enabled);
+        ImGui::SameLine();
 
         auto& tag = entity.GetComponent<Components::Tag>().tag;
         bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
@@ -55,7 +60,8 @@ namespace KEnyin::KEditor::Panels
         // Open entities
         if(opened)
         {
-            ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+            //TODO: Entities Hierarchy
+            //ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
             bool opened = false;
             if (opened)
             {

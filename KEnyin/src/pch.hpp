@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <bitset>
 #include <cassert>
+#include <cmath>
 #include <cctype>
 #include <ctime>
 #include <fstream>

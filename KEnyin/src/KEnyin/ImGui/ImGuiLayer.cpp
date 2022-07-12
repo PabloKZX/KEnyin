@@ -140,5 +140,7 @@ namespace KEnyin
         // Background color for empty node (e.g. CentralNode with no window docked into it)
         colors[ImGuiCol_DockingEmptyBg] = ImVec4{ 0.2196f, 0.2196f, 0.2196f, 1.0f };
 
+        // Checkmark
+        colors[ImGuiCol_CheckMark] = ImVec4{ 0.8196f, 0.8196f, 0.8196f, 1.0f };
     }
 }
