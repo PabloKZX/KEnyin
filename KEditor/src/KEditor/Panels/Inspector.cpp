@@ -59,6 +59,10 @@ namespace KEnyin::KEditor::Panels
         utils::drawComponent<Components::Transform>("Transform", entity);
 
         utils::drawComponent<Components::CameraComponent>("Camera", entity);
+
+        utils::drawComponent<Components::MeshRenderer>("Mesh Renderer", entity);
+
+        utils::drawComponent<Components::NativeScript>("Native Script", entity);
         
         if (ImGui::Button("Add Component", ImVec2(ImGui::GetWindowSize().x, 0.0f)))
         {

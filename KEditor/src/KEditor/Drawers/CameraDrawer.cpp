@@ -66,7 +66,9 @@ namespace KEnyin::KEditor
         {
             camera->setFarPlane(farPlane);
         }
+        ImGui::Columns(1);
 
         ImGui::PopItemWidth();
+        ImGui::Unindent();
     }
 }

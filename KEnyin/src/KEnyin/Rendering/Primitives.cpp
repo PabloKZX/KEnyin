@@ -6,6 +6,7 @@ namespace KEnyin
     Mesh* Primitives::CreateCube()
     {
         Mesh* mesh = new Mesh();
+        mesh.name = "Cube";
 
         mesh->vertices =
         {

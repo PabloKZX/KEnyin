@@ -15,6 +15,7 @@ namespace KEnyin
         Mesh();
         ~Mesh();
 
+        std::string name;
         std::vector<Vertex> vertices;
         std::vector<UV> uvs;
         std::vector<Triangle> triangles;
