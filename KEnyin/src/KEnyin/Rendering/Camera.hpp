@@ -15,6 +15,8 @@ namespace KEnyin
     public:
         using TransformSPtr = std::shared_ptr<Components::Transform>;
 
+        enum ProjectionType {Perspective = 0, Orthographic = 1};
+
         Camera() = default;
         Camera(const Components::Transform& transform);
         Camera(const Camera&) = default;
@@ -25,14 +27,28 @@ namespace KEnyin
 
         void resize(unsigned int width, unsigned int height);
 
+        void setProjectionType(ProjectionType type);
+        ProjectionType getProjectionType() const;
+        ///Returns field of view of camera (in radians)
+        float getPerspectiveFOV() const;
+        ///Sets field of view of camera (in radians)
+        void setPerspectiveFOV(float fov);
+        float getNearPlane() const;
+        void setNearPlane(float near);
+        float getFarPlane() const;
+        void setFarPlane(float far);
+        float getOrthographicSize() const;
+        void setOrthographicSize(float size);
+
     private:
         const Components::Transform& _transform;
 
-        float _perspectiveFOV = 45.0f;
-        float _perspectiveNear;
-        float _aspectRatio;
+        ProjectionType _projectionType = ProjectionType::Perspective;
 
-        unsigned int _width = 1280.0f;
-        unsigned int _height = 720.0;
+        float _perspectiveFOV = glm::radians(60.0f); // In radians
+        float _nearPlane = 0.3f;
+        float _farPlane = 1000.0f;
+        float _orthographicSize = 5.0f;
+        float _aspectRatio = 0.0f;
     };
 }

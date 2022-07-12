@@ -20,7 +20,6 @@ namespace KEnyin::KEditor::utils
         auto boldFont = io.Fonts->Fonts[0];
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {4, 4});
-        ImGui::Separator();
         ImGui::PushFont(boldFont);
         bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
         ImGui::PopFont();
