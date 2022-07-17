@@ -59,6 +59,8 @@ namespace KEnyin::KEditor
         material->shader->bind();
         material->shader->setInt("uTexture1", 0);
         material->shader->setInt("uTexture2", 1);
+        material->shader->setVector3f("uObjectColor", 1.0f, 0.5f, 0.31f);
+        material->shader->setVector3f("uLightColor", 1.0f, 1.0f, 1.0f);
 
         class CameraController : public ScriptableEntity
         {
@@ -117,7 +119,19 @@ namespace KEnyin::KEditor
         Components::CameraComponent& cameraComponent = camera.AddComponent<Components::CameraComponent>();
         _mainCamera = cameraComponent.camera;
         camera.AddScript<CameraController>();
-
+        
+        Entity light = _activeScene->createEntity("Light");
+        light.getTransform().position = {1.2f, 1.0f, 1.0f};
+        light.getTransform().scale = {0.2f, 0.2f, 0.2f};
+        std::shared_ptr<Material> lightMaterial = std::make_shared<Material>();
+        lightMaterial->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Unlit.kesh");
+        Components::MeshRenderer& renderer = light.AddComponent<Components::MeshRenderer>();
+        renderer.mesh = mesh;
+        renderer.material = lightMaterial;
+        
+        material->shader->setVector3f("uLightPos", light.getTransform().position);
+        material->shader->setVector3f("uViewPos", camera.getTransform().position);
+        
         int index = 0;
         for (const auto& position : cubePositions)
         {

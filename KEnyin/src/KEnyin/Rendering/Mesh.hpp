@@ -18,6 +18,7 @@ namespace KEnyin
         std::string name;
         std::vector<Vertex> vertices;
         std::vector<UV> uvs;
+        std::vector<Normal> normals;
         std::vector<Triangle> triangles;
 
         void refresh();
