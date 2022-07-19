@@ -13,17 +13,16 @@ namespace KEnyin
     class Camera
     {
     public:
-        using TransformSPtr = std::shared_ptr<Components::Transform>;
-
         enum ProjectionType {Perspective = 0, Orthographic = 1};
 
         Camera() = default;
-        Camera(const Components::Transform& transform);
         Camera(const Camera&) = default;
+        Camera(const Components::Transform& transform);
 
         const glm::mat4 getViewProjectionMatrix() const;
         const glm::mat4 getProjectionMatrix() const;
         const glm::mat4 getViewMatrix() const;
+        const glm::vec3 getPosition() const;
 
         void resize(unsigned int width, unsigned int height);
 

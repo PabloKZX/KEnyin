@@ -36,6 +36,11 @@ namespace KEnyin
         return glm::lookAt(_transform.position, _transform.position + _transform.getForward(), _transform.getUp());
     }
 
+    const glm::vec3 Camera::getPosition() const
+    {
+        return _transform.position;
+    }
+
     void Camera::resize(unsigned int width, unsigned int height)
     {
         KECheck_Engine(width > 0 && height > 0, "");

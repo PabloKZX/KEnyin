@@ -121,6 +121,7 @@ namespace KEnyin::KEditor
         camera.AddScript<CameraController>();
         
         Entity light = _activeScene->createEntity("Light");
+        light.AddComponent<Components::LightComponent>();
         light.getTransform().position = {1.2f, 1.0f, 1.0f};
         light.getTransform().scale = {0.2f, 0.2f, 0.2f};
         std::shared_ptr<Material> lightMaterial = std::make_shared<Material>();
@@ -142,8 +143,6 @@ namespace KEnyin::KEditor
             Components::MeshRenderer& meshRenderer = cube.AddComponent<Components::MeshRenderer>();
             meshRenderer.mesh = mesh;
             meshRenderer.material = material;
-
-            cube.AddScript<Rotator>();
         }
     }
 

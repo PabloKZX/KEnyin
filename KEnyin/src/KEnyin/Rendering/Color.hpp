@@ -12,6 +12,7 @@ namespace KEnyin
         float a = 1.0f;
 
         Color() = default;
+        Color(float c) : r(c), g(c), b(c), a(1.0f) {};
         Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) {};
         Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}; ;
         Color(const glm::vec4& color) : r(color.r), g(color.g), b(color.b), a(color.a) {}; ;

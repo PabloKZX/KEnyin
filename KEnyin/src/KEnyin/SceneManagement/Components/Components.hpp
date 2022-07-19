@@ -4,6 +4,7 @@
 #include "KEnyin/Rendering/Mesh.hpp"
 #include "KEnyin/Rendering/Material.hpp"
 #include "KEnyin/Rendering/Camera.hpp"
+#include "KEnyin/Rendering/Light.hpp"
 #include "KEnyin/Math/Math.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -82,11 +83,18 @@ namespace KEnyin
 
         struct CameraComponent
         {
-            float value = 0.0f;
             std::shared_ptr<Camera> camera;
 
             CameraComponent() = default;
             CameraComponent(const CameraComponent&) = default;
+        };
+
+        struct LightComponent
+        {
+            std::shared_ptr<Light> light;
+
+            LightComponent() = default;
+            LightComponent(const LightComponent&) = default;
         };
 
         struct MeshRenderer

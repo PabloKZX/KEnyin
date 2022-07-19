@@ -26,10 +26,12 @@ namespace KEnyin
 
     }
 
-    void Renderer::BeginScene(Camera* camera)
+    void Renderer::BeginScene(Camera* camera, const Renderer::VLights& lights)
     {
         Clear();
         _sceneData->viewProjectionMatrix = camera->getViewProjectionMatrix();
+        _sceneData->cameraPosition = camera->getPosition();
+        _sceneData->lights = lights;
     }
 
     void Renderer::EndScene()
@@ -46,6 +48,8 @@ namespace KEnyin
         shader.bind();  
         shader.setMatrix4("uViewProjection", _sceneData->viewProjectionMatrix);
         shader.setMatrix4("uModel", transform);
+        shader.setVector3f("uLightPos", _sceneData->lights[0]->getPosition());
+        shader.setVector3f("uViewPos", _sceneData->cameraPosition);
 
         for (size_t i = 0; i < material.textures.size(); i++)
         {

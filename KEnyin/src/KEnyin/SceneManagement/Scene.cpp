@@ -2,6 +2,7 @@
 #include "KEnyin/Input/Input.hpp"
 #include "KEnyin/Rendering/Primitives.hpp"
 #include "KEnyin/Rendering/Renderer.hpp"
+#include "KEnyin/Rendering/Light.hpp"
 #include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/SceneManagement/Entity.hpp"
 #include "KEnyin/SceneManagement/Scene.hpp"
@@ -51,8 +52,17 @@ namespace KEnyin
             KEError_Engine("No camera found!");
             return;
         }
+        
+        Renderer::VLights vLights;
+        
+        auto lights = _registry.view<Components::Transform, Components::LightComponent>();
+        for (auto entity : lights)
+        {
+            auto lightComp = lights.get<Components::LightComponent>(entity);
+            vLights.push_back(lightComp.light.get());
+        }
 
-        Renderer::BeginScene(_mainCamera->camera.get());
+        Renderer::BeginScene(_mainCamera->camera.get(), vLights);
         auto view = _registry.view<Components::Transform, Components::MeshRenderer>();
 
         for (auto entity : view)
@@ -97,5 +107,14 @@ namespace KEnyin
     template<>
     void Scene::onComponentAdded<Components::Tag>(Entity entity, Components::Tag& component)
     {
+    }
+
+    template<>
+    void Scene::onComponentAdded<Components::LightComponent>(Entity entity, Components::LightComponent& component)
+    {
+        if(!component.light)
+        {
+            component.light = std::make_shared<Light>(&entity.getTransform());
+        }
     }
 }
