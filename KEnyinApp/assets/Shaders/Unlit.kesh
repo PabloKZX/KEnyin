@@ -20,7 +20,14 @@ out vec4 fragColor;
 
 in vec2 vTexCoord;
 
+struct Light
+{
+    vec3 color;
+};
+
+uniform Light light;
+
 void main()
 {
-    fragColor = vec4(1.0);
+    fragColor = vec4(vec3(light.color), 1.0);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "KEnyin/Rendering/Color.hpp"
 #include <glm/glm.hpp>
 
 typedef unsigned int GLenum;
@@ -24,6 +25,8 @@ namespace KEnyin
         void  setVector3f(const char* name, const glm::vec3& value);
         void  setVector4f(const char* name, float x, float y, float z, float w);
         void  setVector4f(const char* name, const glm::vec4& value);
+        void  setColor3f(const char* name, const Color& color);
+        void  setColor4f(const char* name, const Color& color);
         void  setMatrix4(const char* name, const glm::mat4& matrix);
 
     private:

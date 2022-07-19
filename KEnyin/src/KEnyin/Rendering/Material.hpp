@@ -14,6 +14,7 @@ namespace KEnyin
         std::shared_ptr<Shader> shader;
         std::vector<std::shared_ptr<Texture2D>> textures;
         Color color;
+        float shininess = 32.0f;
 
         Material() = default;
         Material(const Material&) = default;

@@ -249,6 +249,17 @@ namespace KEnyin
         glUniform3f(glGetUniformLocation(_shaderID, name), value.x, value.y, value.z);
     }
 
+    void Shader::setColor3f(const char* name, const Color& color)
+    {
+        setVector3f(name, color.r, color.g, color.b);
+    }
+
+    void Shader::setColor4f(const char* name, const Color& color)
+    {
+        setVector4f(name, color.r, color.g, color.b, color.a);
+    }
+
+
     void Shader::setVector4f(const char* name, float x, float y, float z, float w)
     {
         glUniform4f(glGetUniformLocation(_shaderID, name), x, y, z, w);

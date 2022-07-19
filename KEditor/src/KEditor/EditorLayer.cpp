@@ -45,22 +45,22 @@ namespace KEnyin::KEditor
 #ifdef KE_PLATFORM_WINDOWS
         material->shader = std::make_unique<Shader>("assets/Shaders/Sample.kesh");
 
-        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/awesomeface.png"));
+        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container2.png"));
+        material->textures.push_back(std::make_unique<Texture2D>("assets/Textures/container2_specular.png"));
 #endif
 
 #ifdef KE_PLATFORM_MACOS
         material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
 
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container.jpg"));
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/awesomeface.png"));
+        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container2.png"));
+        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container2_specular.png"));
 #endif
 
         material->shader->bind();
-        material->shader->setInt("uTexture1", 0);
-        material->shader->setInt("uTexture2", 1);
-        material->shader->setVector3f("uObjectColor", 1.0f, 0.5f, 0.31f);
-        material->shader->setVector3f("uLightColor", 1.0f, 1.0f, 1.0f);
+        material->shader->setInt("material.diffuse", 0);
+        material->shader->setInt("material.specular", 1);
+
+        material->color = {1.0f, 1.0f, 1.0f};
 
         class CameraController : public ScriptableEntity
         {
@@ -130,9 +130,6 @@ namespace KEnyin::KEditor
         renderer.mesh = mesh;
         renderer.material = lightMaterial;
         
-        material->shader->setVector3f("uLightPos", light.getTransform().position);
-        material->shader->setVector3f("uViewPos", camera.getTransform().position);
-        
         int index = 0;
         for (const auto& position : cubePositions)
         {
@@ -143,6 +140,8 @@ namespace KEnyin::KEditor
             Components::MeshRenderer& meshRenderer = cube.AddComponent<Components::MeshRenderer>();
             meshRenderer.mesh = mesh;
             meshRenderer.material = material;
+
+            cube.AddScript<Rotator>();
         }
     }
 

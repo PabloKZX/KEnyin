@@ -48,7 +48,10 @@ namespace KEnyin
         shader.bind();  
         shader.setMatrix4("uViewProjection", _sceneData->viewProjectionMatrix);
         shader.setMatrix4("uModel", transform);
-        shader.setVector3f("uLightPos", _sceneData->lights[0]->getPosition());
+        shader.setVector3f("material.color", material.color);
+        shader.setFloat("material.shininess", material.shininess);
+        shader.setColor3f("light.color", _sceneData->lights[0]->getColor());
+        shader.setVector3f("light.position", _sceneData->lights[0]->getPosition());
         shader.setVector3f("uViewPos", _sceneData->cameraPosition);
 
         for (size_t i = 0; i < material.textures.size(); i++)

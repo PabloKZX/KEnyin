@@ -1,10 +1,10 @@
 #type vertex
 #version 330 core
 layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec2 aTexCoord;
+layout (location = 1) in vec2 aTexCoords;
 layout (location = 2) in vec3 aNormal;
 
-out vec2 vTexCoord;
+out vec2 vTexCoords;
 out vec3 vNormal;
 out vec3 vFragPos;
 
@@ -13,49 +13,61 @@ uniform mat4 uViewProjection;
 
 void main()
 {
-    vTexCoord = aTexCoord;
+    vTexCoords = aTexCoords;
     vNormal = mat3(transpose(inverse(uModel))) * aNormal;
     vFragPos = vec3(uModel * vec4(aPos, 1.0f));
-    gl_Position = uViewProjection * uModel * vec4(aPos, 1.0);
+    gl_Position = uViewProjection * vec4(vFragPos, 1.0);
 }
 
 #type fragment
 #version 330 core
 out vec4 fragColor;
 
-in vec2 vTexCoord;
+in vec2 vTexCoords;
 in vec3 vNormal;
 in vec3 vFragPos;
 
 uniform sampler2D uTexture1;
 uniform sampler2D uTexture2;
 
-uniform vec3 uObjectColor;
-uniform vec3 uLightColor;
-uniform vec3 uLightPos;
+struct Material
+{
+    vec3 color;
+    sampler2D diffuse;
+    sampler2D specular;
+    float shininess;
+};
+
+struct Light
+{
+    vec3 position;
+    vec3 color;
+};
+
+uniform Material material;
+uniform Light light;
 uniform vec3 uViewPos;
 
 void main()
 {
     // ambient lighting
     float ambientStrength = 0.1;
-    vec3 ambient = ambientStrength * uLightColor;
+    vec3 ambient = ambientStrength * light.color;
     
     // diffuse lighting
     vec3 normal = normalize(vNormal);
-    vec3 lightingDir = normalize(uLightPos - vFragPos);
+    vec3 lightingDir = normalize(light.position - vFragPos);
     float diff = max(dot(normal, lightingDir), 0.0f);
-    vec3 diffuse = diff * uLightColor;
+    vec3 diffuse = light.color * diff * vec3(texture(material.diffuse, vTexCoords));
     
     // specular lighting
-    float specularStrength = 0.5;
     vec3 viewDir = normalize(uViewPos - vFragPos);
     vec3 reflectDir = reflect(-lightingDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength * spec * uLightColor;
+    vec3 specular = light.color * spec * vec3(texture(material.specular, vTexCoords));
     
-    vec3 lightingResult = (ambient + diffuse + specular) * uObjectColor;
+    vec3 lightingResult = (ambient + diffuse + specular) * material.color;
 
-    vec4 textureSample = mix(texture(uTexture1, vTexCoord), texture(uTexture2, vTexCoord), 0.2);
+    vec4 textureSample = mix(texture(uTexture1, vTexCoords), texture(uTexture2, vTexCoords), 0.2);
     fragColor = vec4(lightingResult, 1.0);
 }
