@@ -45,14 +45,24 @@ namespace KEnyin
         Material& material = *meshComponent.material;
         Shader& shader = *material.shader;
 
+        Light& light = *_sceneData->lights[0];
+
         shader.bind();  
         shader.setMatrix4("uViewProjection", _sceneData->viewProjectionMatrix);
         shader.setMatrix4("uModel", transform);
         shader.setVector3f("material.color", material.color);
         shader.setFloat("material.shininess", material.shininess);
-        shader.setColor3f("light.color", _sceneData->lights[0]->getColor());
-        shader.setVector3f("light.position", _sceneData->lights[0]->getPosition());
+        shader.setColor3f("light.color", light.getLightData().lightColor);
+        shader.setVector3f("light.direction", light.getDirection());
+        shader.setVector3f("light.position", light.getPosition());
+        shader.setFloat("light.range", light.getLightData().range);
+        shader.setFloat("light.linearAttenuation", light.getLightData().linearAttenuation);
+        shader.setFloat("light.quadraticAttenuation", light.getLightData().quadraticAttenuation);
+        shader.setFloat("light.innerAngle", glm::cos(light.getLightData().innerAngle));
+        shader.setFloat("light.outerAngle", glm::cos(light.getLightData().outerAngle));
         shader.setVector3f("uViewPos", _sceneData->cameraPosition);
+
+        shader.setInt("lightType", light.getLightData().type);
 
         for (size_t i = 0; i < material.textures.size(); i++)
         {

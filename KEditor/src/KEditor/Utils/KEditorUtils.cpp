@@ -73,4 +73,27 @@ namespace KEnyin::KEditor::utils
 
         ImGui::PopID();
     }
+
+    void drawEnum(const std::string& label, const std::vector<std::string>& typeStrings, std::string& currentTypeString, std::function<void(int)> onSelected)
+    {
+        if(ImGui::BeginCombo(label.c_str(), currentTypeString.c_str()))
+        {
+            for (int i = 0; i < typeStrings.size(); i++)
+            {
+                bool isSelected = currentTypeString == typeStrings[i];
+                if (ImGui::Selectable(typeStrings[i].c_str(), isSelected))
+                {
+                    currentTypeString = typeStrings[i];
+                    onSelected(i);
+                }
+
+                if (isSelected)
+                {
+                    ImGui::SetItemDefaultFocus();
+                }
+            }
+
+            ImGui::EndCombo();
+        }
+    }
 }

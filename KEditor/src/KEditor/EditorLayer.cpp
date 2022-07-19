@@ -12,7 +12,7 @@ namespace KEnyin::KEditor
 
     void EditorLayer::onAttach()
     {
-        Renderer::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+        Renderer::SetClearColor({ 0.192f, 0.301f, 0.474f, 1.0f });
         _activeScene = std::make_shared<Scene>();
         _hierarchyPanel.setContext(_activeScene);
         _hierarchyPanel.setOnEntitySelectedChangedCallback([=](Entity entity){_inspectorPanel.setContext(entity);});

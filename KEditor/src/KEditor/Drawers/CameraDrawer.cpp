@@ -7,28 +7,13 @@ namespace KEnyin::KEditor
     void Drawer::onImGuiRender<Components::CameraComponent>(Components::CameraComponent& component)
     {
         std::shared_ptr<Camera> camera = component.camera;
-        const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
-        const char* currentProjectionTypeString = projectionTypeStrings[(int)camera->getProjectionType()];
+        std::vector<std::string> projectionTypeStrings = { "Perspective", "Orthographic" };
+        std::string currentProjectionTypeString = projectionTypeStrings[(int)camera->getProjectionType()];
 
-        if(ImGui::BeginCombo("Projection", currentProjectionTypeString))
+        utils::drawEnum("Projection", projectionTypeStrings, currentProjectionTypeString, [camera](int selectedIndex)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                bool isSelected = currentProjectionTypeString == projectionTypeStrings[i];
-                if (ImGui::Selectable(projectionTypeStrings[i], isSelected))
-                {
-                    currentProjectionTypeString = projectionTypeStrings[i];
-                    camera->setProjectionType((Camera::ProjectionType)i);
-                }
-
-                if (isSelected)
-                {
-                    ImGui::SetItemDefaultFocus();
-                }
-            }
-
-            ImGui::EndCombo();
-        }
+            camera->setProjectionType((Camera::ProjectionType)selectedIndex);
+        });
 
         ImGui::Indent();
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.7f);

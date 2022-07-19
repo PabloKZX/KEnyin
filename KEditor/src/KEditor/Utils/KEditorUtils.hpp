@@ -53,10 +53,11 @@ namespace KEnyin::KEditor::utils
         {
             entity.RemoveComponent<T>();
         }
-        
+
         ImGui::NewLine();
         ImGui::Separator();
     }
 
     void drawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 70.0f);
+    void drawEnum(const std::string& label, const std::vector<std::string>& typeStrings, std::string& currentTypeString, std::function<void(int)> onSelected);
 }

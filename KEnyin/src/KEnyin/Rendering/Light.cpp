@@ -12,10 +12,15 @@ namespace KEnyin
     glm::vec3 Light::getPosition() const
     {
         return _transform->position;
-
     }
-    const Color& Light::getColor() const
+
+    glm::vec3 Light::getDirection() const
     {
-        return _lightColor;
+        return _transform->getForward();
+    }
+
+    Light::LightData& Light::getLightData()
+    {
+        return _lightData;
     }
 }
