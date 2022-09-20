@@ -29,8 +29,8 @@ namespace KEnyin
         //io.ConfigViewportsNoTaskBarIcon = true;
         
         //TODO: Local Paths
-        io.Fonts->AddFontFromFileTTF("/Users/pablo.martinez/dev/KEnyin/KEditor/assets/Fonts/Arial/ARIALBD.TTF", 14.0f);
-        io.FontDefault = io.Fonts->AddFontFromFileTTF("/Users/pablo.martinez/dev/KEnyin/KEditor/assets/Fonts/Arial/ARIAL.TTF", 14.0f);
+        io.Fonts->AddFontFromFileTTF("D:/Dev/KEnyin/KEditor/assets/Fonts/Arial/ARIALBD.TTF", 14.0f);
+        io.FontDefault = io.Fonts->AddFontFromFileTTF("D:/Dev/KEnyin/KEditor/assets/Fonts/Arial/ARIAL.TTF", 14.0f);
 
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();

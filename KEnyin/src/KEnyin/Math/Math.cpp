@@ -1,3 +1,4 @@
+#include "pch.hpp"
 #include "KEnyin/Math/Math.hpp"
 
 namespace KEnyin::Math

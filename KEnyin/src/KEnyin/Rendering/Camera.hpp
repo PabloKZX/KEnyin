@@ -33,9 +33,9 @@ namespace KEnyin
         ///Sets field of view of camera (in radians)
         void setPerspectiveFOV(float fov);
         float getNearPlane() const;
-        void setNearPlane(float near);
+        void setNearPlane(float nearPlane);
         float getFarPlane() const;
-        void setFarPlane(float far);
+        void setFarPlane(float farPlane);
         float getOrthographicSize() const;
         void setOrthographicSize(float size);
 

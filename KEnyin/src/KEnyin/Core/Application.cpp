@@ -94,7 +94,6 @@ namespace KEnyin
         {
             layer->onUpdate(timestep);
         }
-        
     }
 
     void Application::render()

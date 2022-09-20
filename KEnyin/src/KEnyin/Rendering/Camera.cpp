@@ -72,9 +72,9 @@ namespace KEnyin
         return _nearPlane;
     }
 
-    void Camera::setNearPlane(float near)
+    void Camera::setNearPlane(float nearPlane)
     {
-        _nearPlane = near;
+        _nearPlane = nearPlane;
     }
 
     float Camera::getFarPlane() const
@@ -82,9 +82,9 @@ namespace KEnyin
         return _farPlane;
     }
 
-    void Camera::setFarPlane(float far)
+    void Camera::setFarPlane(float farPlane)
     {
-        _farPlane = far;
+        _farPlane = farPlane;
     }
 
     float Camera::getOrthographicSize() const
