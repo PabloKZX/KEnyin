@@ -32,7 +32,7 @@ namespace KEnyin
 
         ServiceLocator::get().loadServices(this);
         
-        _imGuiLayer = new ImGuiLayer();;
+        _imGuiLayer = new ImGuiLayer();
         pushOverlay(_imGuiLayer);
         
         Renderer::Init();

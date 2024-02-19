@@ -56,7 +56,7 @@ namespace KEnyin
         Renderer::VLights vLights;
         
         auto lights = _registry.view<Components::Transform, Components::LightComponent>();
-        for (auto entity : lights)
+        for (const auto& entity : lights)
         {
             auto lightComp = lights.get<Components::LightComponent>(entity);
             vLights.push_back(lightComp.light.get());
@@ -65,7 +65,7 @@ namespace KEnyin
         Renderer::BeginScene(_mainCamera->camera.get(), vLights);
         auto view = _registry.view<Components::Transform, Components::MeshRenderer>();
 
-        for (auto entity : view)
+        for (const auto& entity : view)
         {
             auto [transform, mesh] = view.get<Components::Transform, Components::MeshRenderer>(entity);
 
