@@ -9,7 +9,7 @@ namespace KEnyin
         class KEditor : public Application
         {
         public:
-            KEditor() : Application("KEditor App")
+            KEditor() : Application("KEnyin")
             {
                 pushLayer(new EditorLayer());
             }

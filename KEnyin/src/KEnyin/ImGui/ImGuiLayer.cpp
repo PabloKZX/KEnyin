@@ -1,13 +1,11 @@
 #include "pch.hpp"
 #include "KEnyin/Core/Application.hpp"
-#include "KEnyin/Core/ServiceLocator.hpp"
-#include "KEnyin/ImGui/ImGuiLayer.hpp"
+#include "KEnyin/AssetManagement/AssetManager.hpp"
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 namespace KEnyin
 {
@@ -27,10 +25,9 @@ namespace KEnyin
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
         //io.ConfigViewportsNoAutoMerge = true;
         //io.ConfigViewportsNoTaskBarIcon = true;
-        
-        //TODO: Local Paths
-        io.Fonts->AddFontFromFileTTF("D:/Dev/KEnyin/KEditor/assets/Fonts/Arial/ARIALBD.TTF", 14.0f);
-        io.FontDefault = io.Fonts->AddFontFromFileTTF("D:/Dev/KEnyin/KEditor/assets/Fonts/Arial/ARIAL.TTF", 14.0f);
+
+        io.Fonts->AddFontFromFileTTF(AssetManager::getEditorAssetsPath().append("/Fonts/Arial/ARIALBD.TTF").c_str(), 14.0f);
+        io.FontDefault = io.Fonts->AddFontFromFileTTF(AssetManager::getEditorAssetsPath().append("/Fonts/Arial/ARIAL.TTF").c_str(), 14.0f);
 
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();

@@ -22,7 +22,7 @@ namespace KEnyin
             return 0;
         }
 
-        static const std::string& shaderTypeToString(GLenum type)
+        static const std::string shaderTypeToString(GLenum type)
         {
             switch (type)
             {
@@ -44,8 +44,8 @@ namespace KEnyin
     Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
     {
         // 1.Retrieve the source code from the files
-        std::string vertexSource = readFile(vertexPath);
-        std::string fragmentSource = readFile(fragmentPath);
+        const std::string& vertexSource = readFile(vertexPath);
+        const std::string& fragmentSource = readFile(fragmentPath);
 
         // 2. Compile shaders
         unsigned int vertexShader = compileShader(vertexSource, GL_VERTEX_SHADER);

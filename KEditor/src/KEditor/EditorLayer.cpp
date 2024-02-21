@@ -18,12 +18,12 @@ namespace KEnyin::KEditor
         _hierarchyPanel.setOnEntitySelectedChangedCallback([=](Entity entity){_inspectorPanel.setContext(entity);});
 
 
-        FramebufferData data;
-        data.width = 1280,
-            data.height = 720,
-            data.samples = 1,
+        FramebufferData data{};
+        data.width = 1280;
+        data.height = 720;
+        data.samples = 1;
 
-            _framebuffer = std::make_shared<Framebuffer>(data);
+        _framebuffer = std::make_shared<Framebuffer>(data);
 
         glm::vec3 cubePositions[] =
         {
@@ -42,19 +42,9 @@ namespace KEnyin::KEditor
         std::shared_ptr<Material> material = std::make_shared<Material>();
         std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(Primitives::CreateCube());
 
-#ifdef KE_PLATFORM_WINDOWS
-        material->shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
-
-        material->textures.push_back(std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyinApp/assets/Textures/container2.png"));
-        material->textures.push_back(std::make_unique<Texture2D>("D:/Dev/KEnyin/KEnyinApp/assets/Textures/container2_specular.png"));
-#endif
-
-#ifdef KE_PLATFORM_MACOS
-        material->shader = std::make_unique<Shader>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Shaders/Sample.kesh");
-
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container2.png"));
-        material->textures.push_back(std::make_unique<Texture2D>("/Users/pablo.martinez/dev/KEnyin/KEnyinApp/assets/Textures/container2_specular.png"));
-#endif
+        material->shader = AssetManager::LoadAsset<Shader>("Shaders/Sample.kesh");
+        material->textures.emplace_back(AssetManager::LoadAsset<Texture2D>("Textures/container2.png"));
+        material->textures.emplace_back(AssetManager::LoadAsset<Texture2D>("Textures/container2_specular.png"));
 
         material->shader->bind();
         material->shader->setInt("material.diffuse", 0);
@@ -126,7 +116,7 @@ namespace KEnyin::KEditor
         light.getTransform().scale = {0.2f, 0.2f, 0.2f};
 
         std::shared_ptr<Material> lightMaterial = std::make_shared<Material>();
-        lightMaterial->shader = std::make_unique<Shader>("D:/Dev/KEnyin/KEnyinApp/assets/Shaders/Unlit.kesh");
+        lightMaterial->shader = AssetManager::LoadAsset<Shader>("Shaders/Unlit.kesh");
 
         Components::MeshRenderer& renderer = light.AddComponent<Components::MeshRenderer>();
         renderer.mesh = mesh;

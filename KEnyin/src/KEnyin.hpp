@@ -18,6 +18,8 @@
 #include "KEnyin/SceneManagement/Components/Components.hpp"
 #include "KEnyin/SceneManagement/ScriptableEntity.hpp"
 
+#include "KEnyin/AssetManagement/AssetManager.hpp"
+
 #include "KEnyin/Math/Math.hpp"
 
 // ---Renderer------------------------
